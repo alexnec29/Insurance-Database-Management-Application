@@ -5,15 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Proiect"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Background="#FF444444" Foreground="Black">
     <Grid>
-        <Button Margin="0,139,682,245" Click="Button_Click" Content="RCA"/>
-        <Button Margin="0,245,682,139" Click="Button_Click" Content="LOCUINTE"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="397" Margin="118,37,0,0" VerticalAlignment="Top" Width="682"/>
-        <Button Margin="527,0,137,397" Click="Button_Click" Content="SORTEAZA" Height="37" VerticalAlignment="Bottom"/>
-        <Button Margin="118,0,546,397" Click="Button_Click" Content="ADAUGA" Height="37" VerticalAlignment="Bottom"/>
-        <Button Margin="254,0,410,397" Click="Button_Click" Content="EDITEAZA" Height="37" VerticalAlignment="Bottom"/>
-        <Button Margin="390,0,273,397" Click="Button_Click" Content="CAUTA" Height="37" VerticalAlignment="Bottom"/>
-        <Button Margin="663,0,0,397" Click="Button_Click" Content="STERGE" Height="37" VerticalAlignment="Bottom"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="158,-38,0,338" Width="640">
+            <Button Click="AdaugaButton_Click" Content="ADAUGA" Background="#FFC2C2BB" Width="128" Margin="0,10" Height="40"/>
+            <Button Click="EditeazaButton_Click" Content="EDITEAZA" Background="#FFC2C2BB" Width="129" Margin="0,10" Height="40"/>
+            <Button Click="CautaButton_Click" Content="CAUTA" Background="#FFC2C2BB" Width="128" Margin="0,10" Height="40"/>
+            <Button Click="StergeButton_Click" Content="STERGE" Background="#FFC2C2BB" Width="129" Margin="0,10" Height="40"/>
+            <Button Click="SorteazaButton_Click" Content="SORTEAZA" Background="#FFC2C2BB" Width="128" Margin="0,10" Height="40"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0,135,0,0" Width="158">
+            <Button x:Name="RcaButton" Click="RcaButton_Click" Content="RCA" Background="#FFC2C2BB" Width="150" Margin="0,10" Height="48"/>
+            <Button x:Name="LocuinteButton" Click="LocuinteButton_Click" Content="LOCUINTE" Background="#FFC2C2BB" Width="150" Margin="0,10" Height="45"/>
+        </StackPanel>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="397" VerticalAlignment="Top" Width="642" Margin="158,37,0,0"/>
     </Grid>
 </Window>

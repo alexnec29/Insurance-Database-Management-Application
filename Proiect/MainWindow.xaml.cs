@@ -21,7 +21,36 @@ namespace Proiect
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void RcaButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("RCA was clicked");
+        }
+        private void LocuinteButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Locuinte was clicked");
+        }
+
+        private void AdaugaButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EditeazaButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CautaButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SorteazaButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void StergeButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
