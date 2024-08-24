@@ -1,0 +1,19 @@
+﻿<Window x:Class="Proiect.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Proiect"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Button Margin="0,139,682,245" Click="Button_Click" Content="RCA"/>
+        <Button Margin="0,245,682,139" Click="Button_Click" Content="LOCUINTE"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="397" Margin="118,37,0,0" VerticalAlignment="Top" Width="682"/>
+        <Button Margin="527,0,137,397" Click="Button_Click" Content="SORTEAZA" Height="37" VerticalAlignment="Bottom"/>
+        <Button Margin="118,0,546,397" Click="Button_Click" Content="ADAUGA" Height="37" VerticalAlignment="Bottom"/>
+        <Button Margin="254,0,410,397" Click="Button_Click" Content="EDITEAZA" Height="37" VerticalAlignment="Bottom"/>
+        <Button Margin="390,0,273,397" Click="Button_Click" Content="CAUTA" Height="37" VerticalAlignment="Bottom"/>
+        <Button Margin="663,0,0,397" Click="Button_Click" Content="STERGE" Height="37" VerticalAlignment="Bottom"/>
+    </Grid>
+</Window>
