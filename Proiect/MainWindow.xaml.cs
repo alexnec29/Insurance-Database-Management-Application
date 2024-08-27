@@ -76,19 +76,26 @@ namespace Proiect
 
         private void AdaugaButton_Click(object sender, RoutedEventArgs e)
         {
-            string connectionString = "Data Source=asigurari.db;Version=3;";
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            AddWindow addWindow = new AddWindow();
+            if (addWindow.ShowDialog() == true)
             {
-                connection.Open();
+                string connectionString = "Data Source=asigurari.db;Version=3;";
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                {
+                    connection.Open();
 
-                string insertQuery = "INSERT INTO Asigurari (NumeClient, Suma) VALUES (@NumeClient, @Suma)";
-                SQLiteCommand command = new SQLiteCommand(insertQuery, connection);
-                command.Parameters.AddWithValue("@NumeClient", "Ion Popescu");
-                command.Parameters.AddWithValue("@Suma", 1500);
+                    // Use the data entered in AddWindow
+                    string insertQuery = "INSERT INTO Asigurari (NumeClient, Suma) VALUES (@NumeClient, @Suma)";
+                    SQLiteCommand command = new SQLiteCommand(insertQuery, connection);
+                    command.Parameters.AddWithValue("@NumeClient", addWindow.NumeClient);
+                    command.Parameters.AddWithValue("@Suma", addWindow.Suma);
 
-                command.ExecuteNonQuery();
+                    command.ExecuteNonQuery();
+                }
+
+                // Reload the data in the main window
+                LoadData();
             }
-            LoadData();
         }
 
         private void EditeazaButton_Click(object sender, RoutedEventArgs e)

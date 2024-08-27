@@ -3,12 +3,24 @@
   "WorkspaceRootPath": "D:\\work\\Programe facute\\Proiecte\\Proiect\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{EC4B021F-F3EA-4255-B449-22000619CFB1}|Proiect\\Proiect.csproj|d:\\work\\programe facute\\proiecte\\proiect\\proiect\\addwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC4B021F-F3EA-4255-B449-22000619CFB1}|Proiect\\Proiect.csproj|solutionrelative:proiect\\addwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{EC4B021F-F3EA-4255-B449-22000619CFB1}|Proiect\\Proiect.csproj|d:\\work\\programe facute\\proiecte\\proiect\\proiect\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EC4B021F-F3EA-4255-B449-22000619CFB1}|Proiect\\Proiect.csproj|solutionrelative:proiect\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{EC4B021F-F3EA-4255-B449-22000619CFB1}|Proiect\\Proiect.csproj|d:\\work\\programe facute\\proiecte\\proiect\\proiect\\addwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{EC4B021F-F3EA-4255-B449-22000619CFB1}|Proiect\\Proiect.csproj|solutionrelative:proiect\\addwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{EC4B021F-F3EA-4255-B449-22000619CFB1}|Proiect\\Proiect.csproj|d:\\work\\programe facute\\proiecte\\proiect\\proiect\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{EC4B021F-F3EA-4255-B449-22000619CFB1}|Proiect\\Proiect.csproj|solutionrelative:proiect\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC4B021F-F3EA-4255-B449-22000619CFB1}|Proiect\\Proiect.csproj|d:\\work\\programe facute\\proiecte\\proiect\\proiect\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC4B021F-F3EA-4255-B449-22000619CFB1}|Proiect\\Proiect.csproj|solutionrelative:proiect\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +34,45 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "D:\\work\\Programe facute\\Proiecte\\Proiect\\Proiect\\App.xaml.cs",
+              "RelativeDocumentMoniker": "Proiect\\App.xaml.cs",
+              "ToolTip": "D:\\work\\Programe facute\\Proiecte\\Proiect\\Proiect\\App.xaml.cs",
+              "RelativeToolTip": "Proiect\\App.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-27T20:32:14.149Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AddWindow.xaml.cs",
+              "DocumentMoniker": "D:\\work\\Programe facute\\Proiecte\\Proiect\\Proiect\\AddWindow.xaml.cs",
+              "RelativeDocumentMoniker": "Proiect\\AddWindow.xaml.cs",
+              "ToolTip": "D:\\work\\Programe facute\\Proiecte\\Proiect\\Proiect\\AddWindow.xaml.cs",
+              "RelativeToolTip": "Proiect\\AddWindow.xaml.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAowCcAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-27T20:30:43.552Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AddWindow.xaml",
+              "DocumentMoniker": "D:\\work\\Programe facute\\Proiecte\\Proiect\\Proiect\\AddWindow.xaml",
+              "RelativeDocumentMoniker": "Proiect\\AddWindow.xaml",
+              "ToolTip": "D:\\work\\Programe facute\\Proiecte\\Proiect\\Proiect\\AddWindow.xaml",
+              "RelativeToolTip": "Proiect\\AddWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-08-27T20:29:14.142Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "D:\\work\\Programe facute\\Proiecte\\Proiect\\Proiect\\MainWindow.xaml",
               "RelativeDocumentMoniker": "Proiect\\MainWindow.xaml",
@@ -34,13 +84,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "D:\\work\\Programe facute\\Proiecte\\Proiect\\Proiect\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "Proiect\\MainWindow.xaml.cs",
               "ToolTip": "D:\\work\\Programe facute\\Proiecte\\Proiect\\Proiect\\MainWindow.xaml.cs",
               "RelativeToolTip": "Proiect\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAHMAAAAAAAAAAAASwH8AAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAEcAAAAAAAAAAAAqwE4AAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-24T19:33:34.047Z",
               "EditorCaption": ""
