@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Proiect"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="#FF444444" Foreground="Black">
+        Title="MainWindow" Height="450" Width="800" Background="#FF444444" Foreground="Black" ResizeMode="NoResize">
     <Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="158,-38,0,338" Width="640">
             <Button Click="AdaugaButton_Click" Content="ADAUGA" Background="#FFC2C2BB" Width="128" Margin="0,10" Height="40"/>
@@ -18,6 +18,8 @@
             <Button x:Name="RcaButton" Click="RcaButton_Click" Content="RCA" Background="#FFC2C2BB" Width="150" Margin="0,10" Height="48"/>
             <Button x:Name="LocuinteButton" Click="LocuinteButton_Click" Content="LOCUINTE" Background="#FFC2C2BB" Width="150" Margin="0,10" Height="45"/>
         </StackPanel>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="397" VerticalAlignment="Top" Width="642" Margin="158,37,0,0"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="397" VerticalAlignment="Top" Width="642" Margin="158,37,0,0">
+            <DataGrid x:Name="DataGrid" AutoGenerateColumns="True" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="-1,-1,0,0" SelectionChanged="DataGrid_SelectionChanged"/>
+        </Border>
     </Grid>
 </Window>
