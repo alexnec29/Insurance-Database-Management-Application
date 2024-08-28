@@ -19,7 +19,9 @@
             <Button x:Name="LocuinteButton" Click="LocuinteButton_Click" Content="LOCUINTE" Background="#FFC2C2BB" Width="150" Margin="0,10" Height="45"/>
         </StackPanel>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="447" VerticalAlignment="Top" Width="840" Margin="158,37,0,0">
-            <DataGrid x:Name="DataGrid" AutoGenerateColumns="True" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="-8,-1,0,-1" SelectionChanged="DataGrid_SelectionChanged" Background="#FFE9E9E9" Foreground="Black" BorderBrush="Black" FontFamily="Times New Roman" FontSize="11" HorizontalAlignment="Left" Width="847"/>
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <DataGrid x:Name="DataGrid" AutoGenerateColumns="True" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="-8,-1,0,-1" SelectionChanged="DataGrid_SelectionChanged" Background="#FFE9E9E9" Foreground="Black" BorderBrush="Black" FontFamily="Times New Roman" FontSize="11" HorizontalAlignment="Left" Width="847"/>
+            </ScrollViewer>
         </Border>
     </Grid>
 </Window>

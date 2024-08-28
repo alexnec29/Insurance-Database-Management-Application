@@ -43,6 +43,7 @@ namespace Proiect
         public int NrKm { get; private set; }
         public DateTime DataPrimeiInmatriculari { get; private set; }
         public DateTime DataExpirareITP { get; private set; }
+        public string NumarTelefon { get; private set; }
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
@@ -71,6 +72,7 @@ namespace Proiect
                 NrKm = int.Parse(NrKmTextBox.Text);
                 DataPrimeiInmatriculari = DateTime.Parse(DataPrimeiInmatriculariTextBox.Text);
                 DataExpirareITP = DateTime.Parse(DataExpirareITPTextBox.Text);
+                NumarTelefon = NumarTelefonTextBox.Text;
 
                 this.DialogResult = true; // Close the window and return true to the main window
             }

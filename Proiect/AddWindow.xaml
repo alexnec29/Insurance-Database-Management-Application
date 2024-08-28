@@ -1,79 +1,151 @@
 ﻿<Window x:Class="Proiect.AddWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Add New RCA Record" Height="600" Width="400">
+        Title="Add New RCA Record" Height="732" Width="600" Background="#FFD9E2E9">
+    <Window.Resources>
+        <Color x:Key="RowColor1">#F5F5F5</Color>
+        <Color x:Key="RowColor2">#FFFFFF</Color>
+
+        <Style x:Key="OddRowStyle" TargetType="Grid">
+            <Setter Property="Background" Value="{StaticResource RowColor1}" />
+        </Style>
+        <Style x:Key="EvenRowStyle" TargetType="Grid">
+            <Setter Property="Background" Value="{StaticResource RowColor2}" />
+        </Style>
+    </Window.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="10">
-            <TextBlock Text="Data Expirare Polita:" />
-            <TextBox Name="DataExpirarePolitaTextBox" />
+        <Grid Margin="10" Height="702">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="175*" />
+                <ColumnDefinition Width="48*"/>
+                <ColumnDefinition Width="28*" />
+                <ColumnDefinition Width="312*" />
+            </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Numar Inmatriculare:" Margin="0,10,0,0" />
-            <TextBox Name="NumarInmatriculareTextBox" />
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-            <TextBlock Text="Serie Sasiu:" Margin="0,10,0,0" />
-            <TextBox Name="SerieSasiuTextBox" />
+            <Rectangle Fill="#D9E2E9" Grid.Row="0" Grid.ColumnSpan="4" Margin="0,0,0,28" Grid.RowSpan="2" />
+            <Rectangle Fill="#EEEEEE" Grid.Row="1" Grid.ColumnSpan="4" Margin="0,0,0,28" Grid.RowSpan="2" />
+            <Rectangle Fill="#D9E2E9" Grid.Row="2" Grid.ColumnSpan="4" Margin="0,0,0,28" Grid.RowSpan="2" />
+            <Rectangle Fill="#EEEEEE" Grid.Row="3" Grid.ColumnSpan="4" Margin="0,0,0,28" Grid.RowSpan="2" />
+            <Rectangle Fill="#D9E2E9" Grid.Row="4" Grid.ColumnSpan="4" Margin="0,0,0,28" Grid.RowSpan="2" />
+            <Rectangle Fill="#EEEEEE" Grid.Row="5" Grid.ColumnSpan="4" Margin="0,0,0,28" Grid.RowSpan="2" />
+            <Rectangle Fill="#D9E2E9" Grid.Row="6" Grid.ColumnSpan="4" Margin="0,0,0,28" Grid.RowSpan="2" />
+            <Rectangle Fill="#EEEEEE" Grid.Row="7" Grid.ColumnSpan="4" Margin="0,0,0,28" Grid.RowSpan="2" />
+            <Rectangle Fill="#D9E2E9" Grid.Row="8" Grid.ColumnSpan="4" Margin="0,0,0,28" Grid.RowSpan="2" />
+            <Rectangle Fill="#EEEEEE" Grid.Row="9" Grid.ColumnSpan="4" Margin="0,0,0,28" Grid.RowSpan="2" />
+            <Rectangle Fill="#D9E2E9" Grid.Row="10" Grid.ColumnSpan="4" Margin="0,0,0,28" Grid.RowSpan="2" />
+            <Rectangle Fill="#EEEEEE" Grid.Row="11" Grid.ColumnSpan="4" Margin="0,0,0,27" Grid.RowSpan="2" />
+            <Rectangle Fill="#D9E2E9" Grid.Row="12" Grid.ColumnSpan="4" />
+            <Rectangle Fill="#EEEEEE" Grid.Row="12" Grid.ColumnSpan="4" Margin="0,27,0,0" Grid.RowSpan="2" />
+            <Rectangle Fill="#D9E2E9" Grid.Row="13" Grid.ColumnSpan="4" Margin="0,28,0,0" Grid.RowSpan="2" />
+            <Rectangle Fill="#EEEEEE" Grid.Row="14" Grid.ColumnSpan="4" Margin="0,28,0,0" Grid.RowSpan="2" />
+            <Rectangle Fill="#D9E2E9" Grid.Row="15" Grid.ColumnSpan="4" Margin="0,28,0,0" Grid.RowSpan="2" />
+            <Rectangle Fill="#EEEEEE" Grid.Row="16" Grid.ColumnSpan="4" Margin="0,28,0,0" Grid.RowSpan="2" />
+            <Rectangle Fill="#D9E2E9" Grid.Row="17" Grid.ColumnSpan="4" Margin="0,28,0,0" Grid.RowSpan="2" />
+            <Rectangle Fill="#EEEEEE" Grid.Row="18" Grid.ColumnSpan="4" Margin="0,28,0,0" Grid.RowSpan="2" />
+            <Rectangle Fill="#D9E2E9" Grid.Row="19" Grid.ColumnSpan="4" Margin="0,28,0,0" Grid.RowSpan="2" />
+            <Rectangle Fill="#EEEEEE" Grid.Row="20" Grid.ColumnSpan="4" Margin="0,28,0,0" Grid.RowSpan="2" />
+            <Rectangle Fill="#D9E2E9" Grid.Row="21" Grid.ColumnSpan="4" Margin="0,28,0,0" Grid.RowSpan="2" />
 
-            <TextBlock Text="CNP/CUI:" Margin="0,10,0,0" />
-            <TextBox Name="CnpCuiTextBox" />
+            <TextBlock Text="Data Expirare Polita:" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="4" />
+            <TextBox Name="DataExpirarePolitaTextBox" Grid.Row="0" Grid.Column="3" Margin="5,5,5,5" />
 
-            <TextBlock Text="Nume:" Margin="0,10,0,0" />
-            <TextBox Name="NumeTextBox" />
+            <TextBlock Text="Numar Inmatriculare:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="4" />
+            <TextBox Name="NumarInmatriculareTextBox" Grid.Row="1" Grid.Column="3" Margin="5,5,5,5" />
 
-            <TextBlock Text="Prenume:" Margin="0,10,0,0" />
-            <TextBox Name="PrenumeTextBox" />
+            <TextBlock Text="Serie Sasiu:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="4" />
+            <TextBox Name="SerieSasiuTextBox" Grid.Row="2" Grid.Column="3" Margin="5,5,5,5" />
 
-            <TextBlock Text="Judet:" Margin="0,10,0,0" />
-            <TextBox Name="JudetTextBox" />
+            <TextBlock Text="CNP/CUI:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="4" />
+            <TextBox Name="CnpCuiTextBox" Grid.Row="3" Grid.Column="3" Margin="5,5,5,5" />
 
-            <TextBlock Text="Localitate:" Margin="0,10,0,0" />
-            <TextBox Name="LocalitateTextBox" />
+            <TextBlock Text="Nume:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="4" />
+            <TextBox Name="NumeTextBox" Grid.Row="4" Grid.Column="3" Margin="5,5,5,5" />
 
-            <TextBlock Text="Adresa:" Margin="0,10,0,0" />
-            <TextBox Name="AdresaTextBox" />
+            <TextBlock Text="Prenume:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="4" />
+            <TextBox Name="PrenumeTextBox" Grid.Row="5" Grid.Column="3" Margin="5,5,5,5" />
 
-            <TextBlock Text="Data Obtinere Permis:" Margin="0,10,0,0" />
-            <TextBox Name="DataObtinerePermisTextBox" />
+            <TextBlock Text="Judet:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="4" />
+            <TextBox Name="JudetTextBox" Grid.Row="6" Grid.Column="3" Margin="5,5,5,5" />
 
-            <TextBlock Text="Marca:" Margin="0,10,0,0" />
-            <TextBox Name="MarcaTextBox" />
+            <TextBlock Text="Localitate:" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="4" />
+            <TextBox Name="LocalitateTextBox" Grid.Row="7" Grid.Column="3" Margin="5,5,5,5" />
 
-            <TextBlock Text="Capacitate Cilindrica:" Margin="0,10,0,0" />
-            <TextBox Name="CapacitateCilindricaTextBox" />
+            <TextBlock Text="Adresa:" Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="4" />
+            <TextBox Name="AdresaTextBox" Grid.Row="8" Grid.Column="3" Margin="5,5,5,5" />
 
-            <TextBlock Text="Numar Locuri:" Margin="0,10,0,0" />
-            <TextBox Name="NrLocuriTextBox" />
+            <TextBlock Text="Data Obtinere Permis:" Grid.Row="9" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="4" />
+            <TextBox Name="DataObtinerePermisTextBox" Grid.Row="9" Grid.Column="3" Margin="5,5,5,5" />
 
-            <TextBlock Text="Masa Maxima Autorizata:" Margin="0,10,0,0" />
-            <TextBox Name="MasaMaximaAutorizataTextBox" />
+            <TextBlock Text="Marca:" Grid.Row="10" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="4" />
+            <TextBox Name="MarcaTextBox" Grid.Row="10" Grid.Column="3" Margin="5,5,5,5" />
 
-            <TextBlock Text="Putere Motor (kW):" Margin="0,10,0,0" />
-            <TextBox Name="PutereMotorKwTextBox" />
+            <TextBlock Text="Capacitate Cilindrica:" Grid.Row="11" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="4" />
+            <TextBox Name="CapacitateCilindricaTextBox" Grid.Row="11" Grid.Column="3" Margin="5,5,5,5" />
 
-            <TextBlock Text="Tip Combustibil:" Margin="0,10,0,0" />
-            <TextBox Name="TipCombustibilTextBox" />
+            <TextBlock Text="Numar Locuri:" Grid.Row="12" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="4" />
+            <TextBox Name="NrLocuriTextBox" Grid.Row="12" Grid.Column="3" Margin="5,5,5,5" />
 
-            <TextBlock Text="Model:" Margin="0,10,0,0" />
-            <TextBox Name="ModelTextBox" />
+            <TextBlock Text="Masa Maxima Autorizata:" Grid.Row="13" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="4" />
+            <TextBox Name="MasaMaximaAutorizataTextBox" Grid.Row="13" Grid.Column="3" Margin="5,5,5,5" />
 
-            <TextBlock Text="Serie CIV:" Margin="0,10,0,0" />
-            <TextBox Name="SerieCivTextBox" />
+            <TextBlock Text="Putere Motor (kW):" Grid.Row="14" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="4" />
+            <TextBox Name="PutereMotorKwTextBox" Grid.Row="14" Grid.Column="3" Margin="5,5,5,5" />
 
-            <TextBlock Text="An Fabricatie:" Margin="0,10,0,0" />
-            <TextBox Name="AnFabricatieTextBox" />
+            <TextBlock Text="Tip Combustibil:" Grid.Row="15" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="4" />
+            <TextBox Name="TipCombustibilTextBox" Grid.Row="15" Grid.Column="3" Margin="5,5,5,5" />
 
-            <TextBlock Text="Numar Kilometri:" Margin="0,10,0,0" />
-            <TextBox Name="NrKmTextBox" />
+            <TextBlock Text="Model:" Grid.Row="16" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="4" />
+            <TextBox Name="ModelTextBox" Grid.Row="16" Grid.Column="3" Margin="5,5,5,5" />
 
-            <TextBlock Text="Data Primei Inmatriculari:" Margin="0,10,0,0" />
-            <TextBox Name="DataPrimeiInmatriculariTextBox" />
+            <TextBlock Text="Serie CIV:" Grid.Row="17" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="4" />
+            <TextBox Name="SerieCivTextBox" Grid.Row="17" Grid.Column="3" Margin="5,5,5,5" />
 
-            <TextBlock Text="Data Expirare ITP:" Margin="0,10,0,0" />
-            <TextBox Name="DataExpirareITPTextBox" />
+            <TextBlock Text="An Fabricatie:" Grid.Row="18" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="4" />
+            <TextBox Name="AnFabricatieTextBox" Grid.Row="18" Grid.Column="3" Margin="5,5,5,5" />
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <TextBlock Text="Numar Kilometri:" Grid.Row="19" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="4" />
+            <TextBox Name="NrKmTextBox" Grid.Row="19" Grid.Column="3" Margin="5,5,5,5" />
+
+            <TextBlock Text="Data Primei Inmatriculari:" Grid.Row="20" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="4" />
+            <TextBox Name="DataPrimeiInmatriculariTextBox" Grid.Row="20" Grid.Column="3" Margin="5,5,5,5" />
+
+            <TextBlock Text="Data Expirare ITP:" Grid.Row="21" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="4" />
+            <TextBox Name="DataExpirareITPTextBox" Grid.Row="21" Grid.Column="3" Margin="5,5,5,5" />
+
+            <TextBlock Text="Numar telefon:" Grid.Row="22" Grid.Column="0" VerticalAlignment="Center" Grid.ColumnSpan="4" />
+            <TextBox Name="NumarTelefonTextBox" Grid.Row="22" Grid.Column="3" Margin="5,5,5,5" />
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="23" Margin="0,10,0,0" Grid.Column="3">
                 <Button Content="OK" Width="75" Margin="5" Click="OKButton_Click" />
                 <Button Content="Cancel" Width="75" Margin="5" Click="CancelButton_Click" />
             </StackPanel>
-        </StackPanel>
+        </Grid>
     </ScrollViewer>
 </Window>
