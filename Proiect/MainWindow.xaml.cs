@@ -20,8 +20,15 @@ namespace Proiect
         private string connectionString = "Data Source=locuinte.db;Version=3;";
         public MainWindow()
         {
-            InitializeComponent();
-            CreateDatabase();
+            try
+            {
+                InitializeComponent();
+                CreateDatabase();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"Initialization error: {ex.Message}");
+            }
         }
 
         private void CreateDatabase()
@@ -32,11 +39,10 @@ namespace Proiect
             {
                 connection.Open();
                 string sqlLocuinte = @"CREATE TABLE IF NOT EXISTS Locuinte (
-                                ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                                NumeClient TEXT NOT NULL,
-                                Suma DOUBLE NOT NULL,
-                                selected BOOL
-                              );";
+                        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                        NumeClient TEXT NOT NULL,
+                        Suma DOUBLE NOT NULL
+                      );";
                 using (var command = new SQLiteCommand(sqlLocuinte, connection))
                 {
                     command.ExecuteNonQuery();
@@ -50,10 +56,29 @@ namespace Proiect
                 connection.Open();
                 string sqlRca = @"CREATE TABLE IF NOT EXISTS RCA (
                             ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                            NumeClient TEXT NOT NULL,
-                            Suma DOUBLE NOT NULL,
-                            selected BOOL
-                          );";
+                            Data_Expirare_Polita DATE,
+                            Numar_Inmatriculare TEXT,
+                            Serie_Sasiu TEXT,
+                            CNP_CUI TEXT,
+                            Nume TEXT,
+                            Prenume TEXT,
+                            Judet TEXT,
+                            Localitate TEXT,
+                            Adresa TEXT,
+                            Data_Obtinere_Permis DATE,
+                            Marca TEXT,
+                            Capacitate_Cilindrica INT,
+                            Nr_locuri SMALLINT, 
+                            Masa_Maxima_Autorizata INT,
+                            Putere_Motor_kW SMALLINT,
+                            Tip_Combustibil TEXT,
+                            Model TEXT,
+                            Serie_CIV TEXT,
+                            An_Fabricatie SMALLINT,
+                            Nr_Km INT,
+                            Data_Primei_Inmatriculari DATE,
+                            Data_Expirare_ITP DATE
+                        );";
                 using (var command = new SQLiteCommand(sqlRca, connection))
                 {
                     command.ExecuteNonQuery();
@@ -104,22 +129,77 @@ namespace Proiect
                     using (SQLiteConnection connection = new SQLiteConnection(connectionString))
                     {
                         connection.Open();
-                        string insertQuery = "";
-
-                        // Determine the correct table based on the connection string
-                        if (connectionString.Contains("locuinte.db"))
-                        {
-                            insertQuery = "INSERT INTO Locuinte (NumeClient, Suma) VALUES (@NumeClient, @Suma)";
-                        }
-                        else if (connectionString.Contains("rca.db"))
-                        {
-                            insertQuery = "INSERT INTO RCA (NumeClient, Suma) VALUES (@NumeClient, @Suma)";
-                        }
+                        string insertQuery = @"INSERT INTO RCA (
+                                        Data_Expirare_Polita,
+                                        Numar_Inmatriculare,
+                                        Serie_Sasiu,
+                                        CNP_CUI,
+                                        Nume,
+                                        Prenume,
+                                        Judet,
+                                        Localitate,
+                                        Adresa,
+                                        Data_Obtinere_Permis,
+                                        Marca,
+                                        Capacitate_Cilindrica,
+                                        Nr_locuri,
+                                        Masa_Maxima_Autorizata,
+                                        Putere_Motor_kW,
+                                        Tip_Combustibil,
+                                        Model,
+                                        Serie_CIV,
+                                        An_Fabricatie,
+                                        Nr_Km,
+                                        Data_Primei_Inmatriculari,
+                                        Data_Expirare_ITP) 
+                                    VALUES (
+                                        @DataExpirarePolita,
+                                        @NumarInmatriculare,
+                                        @SerieSasiu,
+                                        @CnpCui,
+                                        @Nume,
+                                        @Prenume,
+                                        @Judet,
+                                        @Localitate,
+                                        @Adresa,
+                                        @DataObtinerePermis,
+                                        @Marca,
+                                        @CapacitateCilindrica,
+                                        @NrLocuri,
+                                        @MasaMaximaAutorizata,
+                                        @PutereMotorKw,
+                                        @TipCombustibil,
+                                        @Model,
+                                        @SerieCiv,
+                                        @AnFabricatie,
+                                        @NrKm,
+                                        @DataPrimeiInmatriculari,
+                                        @DataExpirareITP);";
 
                         using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
                         {
-                            command.Parameters.AddWithValue("@NumeClient", addWindow.NumeClient);
-                            command.Parameters.AddWithValue("@Suma", addWindow.Suma);
+                            command.Parameters.AddWithValue("@DataExpirarePolita", addWindow.DataExpirarePolita);
+                            command.Parameters.AddWithValue("@NumarInmatriculare", addWindow.NumarInmatriculare);
+                            command.Parameters.AddWithValue("@SerieSasiu", addWindow.SerieSasiu);
+                            command.Parameters.AddWithValue("@CnpCui", addWindow.CnpCui);
+                            command.Parameters.AddWithValue("@Nume", addWindow.Nume);
+                            command.Parameters.AddWithValue("@Prenume", addWindow.Prenume);
+                            command.Parameters.AddWithValue("@Judet", addWindow.Judet);
+                            command.Parameters.AddWithValue("@Localitate", addWindow.Localitate);
+                            command.Parameters.AddWithValue("@Adresa", addWindow.Adresa);
+                            command.Parameters.AddWithValue("@DataObtinerePermis", addWindow.DataObtinerePermis);
+                            command.Parameters.AddWithValue("@Marca", addWindow.Marca);
+                            command.Parameters.AddWithValue("@CapacitateCilindrica", addWindow.CapacitateCilindrica);
+                            command.Parameters.AddWithValue("@NrLocuri", addWindow.NrLocuri);
+                            command.Parameters.AddWithValue("@MasaMaximaAutorizata", addWindow.MasaMaximaAutorizata);
+                            command.Parameters.AddWithValue("@PutereMotorKw", addWindow.PutereMotorKw);
+                            command.Parameters.AddWithValue("@TipCombustibil", addWindow.TipCombustibil);
+                            command.Parameters.AddWithValue("@Model", addWindow.Model);
+                            command.Parameters.AddWithValue("@SerieCiv", addWindow.SerieCiv);
+                            command.Parameters.AddWithValue("@AnFabricatie", addWindow.AnFabricatie);
+                            command.Parameters.AddWithValue("@NrKm", addWindow.NrKm);
+                            command.Parameters.AddWithValue("@DataPrimeiInmatriculari", addWindow.DataPrimeiInmatriculari);
+                            command.Parameters.AddWithValue("@DataExpirareITP", addWindow.DataExpirareITP);
 
                             int rowsAffected = command.ExecuteNonQuery();
                             if (rowsAffected > 0)
