@@ -88,7 +88,7 @@ namespace Proiect
                             An_Fabricatie SMALLINT,
                             Nr_Km INT,
                             Data_Primei_Inmatriculari DATE,
-                            Data_Expirare_ITP DATE
+                            Data_Expirare_ITP DATE,
                             NumarTelefon TEXT
                         );";
                 using (var command = new SQLiteCommand(sqlRca, connection))
@@ -182,7 +182,7 @@ namespace Proiect
                                             An_Fabricatie,
                                             Nr_Km,
                                             Data_Primei_Inmatriculari,
-                                            Data_Expirare_ITP
+                                            Data_Expirare_ITP,
                                             NumarTelefon) 
                                         VALUES (
                                             @DataExpirarePolita,
@@ -297,9 +297,10 @@ namespace Proiect
 
                             using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
                             {
-                                command.Parameters.AddWithValue("@DataExpirarii", addWindow2.DataExpirarii);
+                                command.Parameters.AddWithValue("@Data_Expirarii", addWindow2.Data_Expirarii);
                                 command.Parameters.AddWithValue("@NumarTelefon", addWindow2.NumarTelefon);
                                 command.Parameters.AddWithValue("@Nume", addWindow2.Nume);
+                                command.Parameters.AddWithValue("@Prenume", addWindow2.Prenume);
                                 command.Parameters.AddWithValue("@CNP_CUI", addWindow2.CNP_CUI);
                                 command.Parameters.AddWithValue("@Adresa_Asigurata", addWindow2.Adresa_Asigurata);
                                 command.Parameters.AddWithValue("@Adresa_De_Domiciliu", addWindow2.Adresa_De_Domiciliu);

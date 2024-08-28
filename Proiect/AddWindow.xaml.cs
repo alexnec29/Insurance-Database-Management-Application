@@ -30,7 +30,7 @@ namespace Proiect
         public string Judet { get; private set; }
         public string Localitate { get; private set; }
         public string Adresa { get; private set; }
-        public DateTime DataObtinerePermis { get; private set; }
+        public DateTime? DataObtinerePermis { get; private set; }
         public string Marca { get; private set; }
         public int CapacitateCilindrica { get; private set; }
         public int NrLocuri { get; private set; }
@@ -41,8 +41,8 @@ namespace Proiect
         public string SerieCiv { get; private set; }
         public int AnFabricatie { get; private set; }
         public int NrKm { get; private set; }
-        public DateTime DataPrimeiInmatriculari { get; private set; }
-        public DateTime DataExpirareITP { get; private set; }
+        public DateTime? DataPrimeiInmatriculari { get; private set; }
+        public DateTime? DataExpirareITP { get; private set; }
         public string NumarTelefon { get; private set; }
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
@@ -58,7 +58,7 @@ namespace Proiect
                 Judet = JudetTextBox.Text;
                 Localitate = LocalitateTextBox.Text;
                 Adresa = AdresaTextBox.Text;
-                DataObtinerePermis = DateTime.Parse(DataObtinerePermisTextBox.Text);
+                DataObtinerePermis = DataObtinerePermisDatePicker.SelectedDate;
                 Marca = MarcaTextBox.Text;
                 CapacitateCilindrica = int.Parse(CapacitateCilindricaTextBox.Text);
                 NrLocuri = int.Parse(NrLocuriTextBox.Text);
@@ -69,8 +69,8 @@ namespace Proiect
                 SerieCiv = SerieCivTextBox.Text;
                 AnFabricatie = int.Parse(AnFabricatieTextBox.Text);
                 NrKm = int.Parse(NrKmTextBox.Text);
-                DataPrimeiInmatriculari = DateTime.Parse(DataPrimeiInmatriculariTextBox.Text);
-                DataExpirareITP = DateTime.Parse(DataExpirareITPTextBox.Text);
+                DataPrimeiInmatriculari = DataPrimeiInmatriculariDatePicker.SelectedDate;
+                DataExpirareITP = DataExpirareITPDatePicker.SelectedDate;
                 NumarTelefon = NumarTelefonTextBox.Text;
 
                 this.DialogResult = true; // Close the window and return true to the main window

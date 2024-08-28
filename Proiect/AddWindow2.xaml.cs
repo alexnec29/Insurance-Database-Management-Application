@@ -21,7 +21,7 @@ namespace Proiect
             InitializeComponent();
         }
 
-        public DateTime DataExpirarii { get; private set; }
+        public DateTime? Data_Expirarii { get; private set; }
         public string CNP_CUI { get; private set; }
         public string Nume { get; private set; }
         public string Prenume { get; private set; }
@@ -39,7 +39,7 @@ namespace Proiect
         {
             try
             {
-                DataExpirarii = DateTime.Parse(DataExpirariiTextBox.Text);
+                Data_Expirarii = DataExpirariiDatePicker.SelectedDate;
                 NumarTelefon = NumarTelefonTextBox.Text;
                 CNP_CUI = CNP_CUITextBox.Text;
                 Nume = NumeTextBox.Text;
