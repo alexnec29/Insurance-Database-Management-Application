@@ -10,6 +10,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.SQLite;
 using System.Data.SqlClient;
+using System.Data;
 
 
 
@@ -18,6 +19,7 @@ namespace Proiect
     public partial class MainWindow : Window
     {
         private string connectionString = "Data Source=locuinte.db;Version=3;";
+        private int selectedId;
         public MainWindow()
         {
             try
@@ -235,7 +237,42 @@ namespace Proiect
 
         private void StergeButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (selectedId > 0)
+            {
+                try
+                {
+                    using (var connection = new SQLiteConnection(connectionString))
+                    {
+                        string deleteQuery = "";
+                        connection.Open();
+                        if (connectionString == "Data Source=locuinte.db;Version=3;") deleteQuery = "DELETE FROM Locuinte WHERE ID = @ID";
+                        else if (connectionString == "Data Source=rca.db;Version=3;") deleteQuery = "DELETE FROM RCA WHERE ID = @ID";
+                        using (var command = new SQLiteCommand(deleteQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@ID", selectedId);
+
+                            int rowsAffected = command.ExecuteNonQuery();
+                            if (rowsAffected > 0)
+                            {
+                                System.Windows.MessageBox.Show("Data deleted successfully.");
+                                LoadData(); // Reload data to reflect changes
+                            }
+                            else
+                            {
+                                System.Windows.MessageBox.Show("Failed to delete data.");
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show($"An error occurred: {ex.Message}");
+                }
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Please select a row to delete.");
+            }
         }
 
         private void SorteazaButton_Click(object sender, RoutedEventArgs e)
@@ -245,7 +282,13 @@ namespace Proiect
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if (DataGrid.SelectedItem != null)
+            {
+                // Assuming ID is an integer column in the database
+                var selectedRow = (DataRowView)DataGrid.SelectedItem;
+                selectedId = Convert.ToInt32(selectedRow["ID"]); // Update with the appropriate column name
+            }
         }
+
     }
 }
