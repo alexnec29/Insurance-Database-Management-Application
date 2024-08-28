@@ -37,3 +37,5 @@ D:\work\Programe facute\Proiecte\Proiect\Proiect\bin\Debug\net8.0-windows\runtim
 D:\work\Programe facute\Proiecte\Proiect\Proiect\obj\Debug\net8.0-windows\Proiect.csproj.Up2Date
 D:\work\Programe facute\Proiecte\Proiect\Proiect\obj\Debug\net8.0-windows\AddWindow.baml
 D:\work\Programe facute\Proiecte\Proiect\Proiect\obj\Debug\net8.0-windows\AddWindow.g.cs
+D:\work\Programe facute\Proiecte\Proiect\Proiect\obj\Debug\net8.0-windows\AddWindow2.baml
+D:\work\Programe facute\Proiecte\Proiect\Proiect\obj\Debug\net8.0-windows\AddWindow2.g.cs

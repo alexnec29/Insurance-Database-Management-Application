@@ -49,7 +49,6 @@ namespace Proiect
         {
             try
             {
-                // Parse and validate all the input fields
                 DataExpirarePolita = DateTime.Parse(DataExpirarePolitaTextBox.Text);
                 NumarInmatriculare = NumarInmatriculareTextBox.Text;
                 SerieSasiu = SerieSasiuTextBox.Text;
