@@ -17,26 +17,44 @@ namespace Proiect
 {
     public partial class MainWindow : Window
     {
-        private const string connectionString = "Data Source=asigurari.db;Version=3;";
+        private string connectionString = "Data Source=locuinte.db;Version=3;";
         public MainWindow()
         {
             InitializeComponent();
             CreateDatabase();
-            LoadData();
         }
 
         private void CreateDatabase()
         {
-            using (var connection = new SQLiteConnection(connectionString))
+            // Create the Locuinte database and table
+            string locuinteConnectionString = "Data Source=locuinte.db;Version=3;";
+            using (var connection = new SQLiteConnection(locuinteConnectionString))
             {
                 connection.Open();
-                string sql = @"CREATE TABLE IF NOT EXISTS Asigurari (
-                                        ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                                        NumeClient TEXT NOT NULL,
-                                        Suma DOUBLE NOT NULL,
-                                        selected BOOL
-                                    ); ";
-                using (var command = new SQLiteCommand(sql, connection))
+                string sqlLocuinte = @"CREATE TABLE IF NOT EXISTS Locuinte (
+                                ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                                NumeClient TEXT NOT NULL,
+                                Suma DOUBLE NOT NULL,
+                                selected BOOL
+                              );";
+                using (var command = new SQLiteCommand(sqlLocuinte, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+            }
+
+            // Create the RCA database and table
+            string rcaConnectionString = "Data Source=rca.db;Version=3;";
+            using (var connection = new SQLiteConnection(rcaConnectionString))
+            {
+                connection.Open();
+                string sqlRca = @"CREATE TABLE IF NOT EXISTS RCA (
+                            ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                            NumeClient TEXT NOT NULL,
+                            Suma DOUBLE NOT NULL,
+                            selected BOOL
+                          );";
+                using (var command = new SQLiteCommand(sqlRca, connection))
                 {
                     command.ExecuteNonQuery();
                 }
@@ -44,12 +62,12 @@ namespace Proiect
         }
         private void LoadData()
         {
-            string connectionString = "Data Source=asigurari.db;Version=3;";
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
-
-                string selectQuery = "SELECT * FROM Asigurari";
+                string selectQuery = "";
+                if (connectionString == "Data Source=locuinte.db;Version=3;") selectQuery = "SELECT * FROM Locuinte";
+                else if (connectionString == "Data Source=rca.db;Version=3;") selectQuery = "SELECT * FROM RCA";
                 SQLiteCommand command = new SQLiteCommand(selectQuery, connection);
                 SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
 
@@ -67,11 +85,13 @@ namespace Proiect
         }
         private void RcaButton_Click(object sender, RoutedEventArgs e)
         {
-
+            connectionString = "Data Source=rca.db;Version=3;";
+            LoadData();
         }
         private void LocuinteButton_Click(object sender, RoutedEventArgs e)
         {
-
+            connectionString = "Data Source=locuinte.db;Version=3;";
+            LoadData();
         }
 
         private void AdaugaButton_Click(object sender, RoutedEventArgs e)
@@ -79,22 +99,47 @@ namespace Proiect
             AddWindow addWindow = new AddWindow();
             if (addWindow.ShowDialog() == true)
             {
-                string connectionString = "Data Source=asigurari.db;Version=3;";
-                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                try
                 {
-                    connection.Open();
+                    using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                    {
+                        connection.Open();
+                        string insertQuery = "";
 
-                    // Use the data entered in AddWindow
-                    string insertQuery = "INSERT INTO Asigurari (NumeClient, Suma) VALUES (@NumeClient, @Suma)";
-                    SQLiteCommand command = new SQLiteCommand(insertQuery, connection);
-                    command.Parameters.AddWithValue("@NumeClient", addWindow.NumeClient);
-                    command.Parameters.AddWithValue("@Suma", addWindow.Suma);
+                        // Determine the correct table based on the connection string
+                        if (connectionString.Contains("locuinte.db"))
+                        {
+                            insertQuery = "INSERT INTO Locuinte (NumeClient, Suma) VALUES (@NumeClient, @Suma)";
+                        }
+                        else if (connectionString.Contains("rca.db"))
+                        {
+                            insertQuery = "INSERT INTO RCA (NumeClient, Suma) VALUES (@NumeClient, @Suma)";
+                        }
 
-                    command.ExecuteNonQuery();
+                        using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@NumeClient", addWindow.NumeClient);
+                            command.Parameters.AddWithValue("@Suma", addWindow.Suma);
+
+                            int rowsAffected = command.ExecuteNonQuery();
+                            if (rowsAffected > 0)
+                            {
+                                System.Windows.MessageBox.Show("Data added successfully.");
+                            }
+                            else
+                            {
+                                System.Windows.MessageBox.Show("Failed to add data.");
+                            }
+                        }
+                    }
+
+                    // Reload the data in the main window
+                    LoadData();
                 }
-
-                // Reload the data in the main window
-                LoadData();
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show($"An error occurred: {ex.Message}");
+                }
             }
         }
 
@@ -110,20 +155,7 @@ namespace Proiect
 
         private void StergeButton_Click(object sender, RoutedEventArgs e)
         {
-            EraseData();
-        }
-
-        private void EraseData()
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                string query = "DELETE FROM asigurari WHERE @selected=";
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.ExecuteNonQuery();
-                }
-            }
+            
         }
 
         private void SorteazaButton_Click(object sender, RoutedEventArgs e)
