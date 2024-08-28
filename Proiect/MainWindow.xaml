@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Proiect"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="1000" Background="#FF444444" Foreground="Black" ResizeMode="NoResize">
-	<Window.Resources>
-		<Style x:Key="HighlightedButtonStyle" TargetType="Button">
-			<Setter Property="Background" Value="LightBlue"/>
-			<Setter Property="BorderBrush" Value="Blue"/>
-			<Setter Property="BorderThickness" Value="2"/>
-		</Style>
-	</Window.Resources>
+        Title="MainWindow" Height="500" Width="798" Background="#FF444444" Foreground="Black" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style x:Key="HighlightedButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="LightBlue"/>
+            <Setter Property="BorderBrush" Value="Blue"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="158,-60,0,360" Width="840">
             <Button Click="AdaugaButton_Click" Content="ADAUGA" Background="#FFC2C2BB" Width="128" Margin="0,10" Height="40"/>
@@ -27,7 +27,7 @@
         </StackPanel>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="447" VerticalAlignment="Top" Width="840" Margin="158,37,0,0">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                <DataGrid x:Name="DataGrid" AutoGenerateColumns="True" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="-8,-1,0,-1" SelectionChanged="DataGrid_SelectionChanged" Background="#FFE9E9E9" Foreground="Black" BorderBrush="Black" FontFamily="Times New Roman" FontSize="11" HorizontalAlignment="Left" Width="847"/>
+                <DataGrid x:Name="DataGrid" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="-8,-1,0,-1" SelectionChanged="DataGrid_SelectionChanged" CanUserDeleteRows="False" CanUserAddRows="False" Background="#FFE9E9E9" Foreground="Black" BorderBrush="Black" FontFamily="Times New Roman" FontSize="18" Width="833" AlternatingRowBackground="#FFEBEBEB" MinColumnWidth="105"/>
             </ScrollViewer>
         </Border>
     </Grid>

@@ -21,7 +21,7 @@ namespace Proiect
             InitializeComponent();
         }
 
-        public DateTime DataExpirarePolita { get; private set; }
+        public DateTime? DataExpirarePolita { get; set; }
         public string NumarInmatriculare { get; private set; }
         public string SerieSasiu { get; private set; }
         public string CnpCui { get; private set; }
@@ -49,7 +49,7 @@ namespace Proiect
         {
             try
             {
-                DataExpirarePolita = DateTime.Parse(DataExpirarePolitaTextBox.Text);
+                DataExpirarePolita = DataExpirarePolitaDatePicker.SelectedDate;
                 NumarInmatriculare = NumarInmatriculareTextBox.Text;
                 SerieSasiu = SerieSasiuTextBox.Text;
                 CnpCui = CnpCuiTextBox.Text;

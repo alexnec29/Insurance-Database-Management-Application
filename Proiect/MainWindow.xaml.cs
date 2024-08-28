@@ -103,13 +103,25 @@ namespace Proiect
             {
                 connection.Open();
                 string selectQuery = "";
-                if (connectionString == "Data Source=locuinte.db;Version=3;") selectQuery = "SELECT * FROM Locuinte";
-                else if (connectionString == "Data Source=rca.db;Version=3;") selectQuery = "SELECT * FROM RCA";
+                if (connectionString == "Data Source=locuinte.db;Version=3;") selectQuery = "SELECT ID, Data_Expirarii, Nume, Prenume,Adresa_De_Domiciliu FROM Locuinte";
+                else if (connectionString == "Data Source=rca.db;Version=3;") selectQuery = "SELECT ID, Data_Expirare_Polita, Numar_Inmatriculare, Nume, Prenume FROM RCA";
                 SQLiteCommand command = new SQLiteCommand(selectQuery, connection);
                 SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
 
                 System.Data.DataTable dataTable = new System.Data.DataTable();
                 adapter.Fill(dataTable);
+
+                if (connectionString == "Data Source=locuinte.db;Version=3;")
+                {
+                    dataTable.Columns["Data_Expirarii"].ColumnName = "Data expirarii";
+                    dataTable.Columns["Adresa_De_Domiciliu"].ColumnName = "Adresa de domiciliu";
+
+                }
+                else if (connectionString == "Data Source=rca.db;Version=3;")
+                {
+                    dataTable.Columns["Data_Expirare_Polita"].ColumnName = "Data expirarii politei";
+                    dataTable.Columns["Numar_Inmatriculare"].ColumnName = "Numar inmatriculare";
+                }
 
                 DataGrid.ItemsSource = dataTable.DefaultView;
             }
