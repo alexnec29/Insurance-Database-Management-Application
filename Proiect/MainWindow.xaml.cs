@@ -113,14 +113,14 @@ namespace Proiect
 
                 if (connectionString == "Data Source=locuinte.db;Version=3;")
                 {
-                    dataTable.Columns["Data_Expirarii"].ColumnName = "Data expirarii";
-                    dataTable.Columns["Adresa_De_Domiciliu"].ColumnName = "Adresa de domiciliu";
+                    dataTable.Columns["Data_Expirarii"].ColumnName = "Data Expirarii";
+                    dataTable.Columns["Adresa_De_Domiciliu"].ColumnName = "Adresa de Domiciliu";
 
                 }
                 else if (connectionString == "Data Source=rca.db;Version=3;")
                 {
-                    dataTable.Columns["Data_Expirare_Polita"].ColumnName = "Data expirarii politei";
-                    dataTable.Columns["Numar_Inmatriculare"].ColumnName = "Numar inmatriculare";
+                    dataTable.Columns["Data_Expirare_Polita"].ColumnName = "Data Expirarii Politei";
+                    dataTable.Columns["Numar_Inmatriculare"].ColumnName = "Numar Inmatriculare";
                 }
 
                 DataGrid.ItemsSource = dataTable.DefaultView;
@@ -360,7 +360,12 @@ namespace Proiect
 
         private void CautaButton_Click(object sender, RoutedEventArgs e)
         {
+            SearchWindow searchWindow = new SearchWindow(connectionString);
 
+            if (searchWindow.ShowDialog() == true)
+            {
+                DataGrid.ItemsSource = searchWindow.SearchResult.DefaultView;
+            }
         }
 
         private void StergeButton_Click(object sender, RoutedEventArgs e)
