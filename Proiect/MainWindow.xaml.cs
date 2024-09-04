@@ -364,7 +364,20 @@ namespace Proiect
 
             if (searchWindow.ShowDialog() == true)
             {
+                // Display the search results in the DataGrid
                 DataGrid.ItemsSource = searchWindow.SearchResult.DefaultView;
+
+                // Optionally adjust any additional column settings here
+                if (connectionString == "Data Source=locuinte.db;Version=3;")
+                {
+                    DataGrid.Columns[1].Header = "Data Expirarii";
+                    DataGrid.Columns[4].Header = "Adresa de Domiciliu";
+                }
+                else if (connectionString == "Data Source=rca.db;Version=3;")
+                {
+                    DataGrid.Columns[1].Header = "Data Expirarii Politei";
+                    DataGrid.Columns[2].Header = "Numar Inmatriculare";
+                }
             }
         }
 

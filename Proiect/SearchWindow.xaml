@@ -1,21 +1,20 @@
 ﻿<Window x:Class="Proiect.SearchWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Search" Height="200" Width="400">
-	<Grid Margin="10">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="*"/>
-		</Grid.RowDefinitions>
+        Title="Search" Height="350" Width="400">
+    <Grid>
+        <ComboBox x:Name="SearchFieldComboBox" Width="200" Height="30" VerticalAlignment="Top" Margin="10" SelectionChanged="SearchFieldComboBox_SelectionChanged"/>
 
-		<TextBlock Grid.Row="0" Text="Start Date:" VerticalAlignment="Center"/>
-		<DatePicker x:Name="StartDatePicker" Grid.Row="0" Margin="120,0,0,0" VerticalAlignment="Center"/>
+        <!-- TextBox for single value search -->
+        <TextBox x:Name="SearchValueTextBox" Width="200" Height="30" VerticalAlignment="Top" Margin="10,50,10,0" Visibility="Collapsed"/>
 
-		<TextBlock Grid.Row="1" Text="End Date:" VerticalAlignment="Center" Margin="0,10,0,0"/>
-		<DatePicker x:Name="EndDatePicker" Grid.Row="1" Margin="120,10,0,0" VerticalAlignment="Center"/>
+        <!-- Date range controls -->
+        <StackPanel x:Name="DateRangePanel" Orientation="Horizontal" Margin="100,50,100,234"  Visibility="Collapsed">
+	        <DatePicker x:Name="StartDatePicker" Width="90" Height="30" />
+	        <DatePicker x:Name="EndDatePicker" Width="90" Height="30" />
+        </StackPanel>
 
-		<Button x:Name="SearchButton" Grid.Row="2" Content="Search" Margin="0,10,0,0" HorizontalAlignment="Right" Width="100" Click="SearchButton_Click"/>
-	</Grid>
+        <Button Content="Search" Height="30" VerticalAlignment="Top" Margin="100,100,220,0" Click="SearchButton_Click" />
+        <Button Content="Cancel" Height="30" VerticalAlignment="Top" Margin="209,100,100,0" Click="CancelButton_Click" />
+    </Grid>
 </Window>
