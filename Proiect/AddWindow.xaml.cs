@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,9 +17,16 @@ namespace Proiect
 {
     public partial class AddWindow : Window
     {
+        private int? _editId = null;
         public AddWindow()
         {
             InitializeComponent();
+        }
+        public AddWindow(int id)
+        {
+            InitializeComponent();
+            _editId = id;
+            LoadDataForEdit(_editId.Value);
         }
 
         public DateTime? DataExpirarePolita { get; set; }
@@ -45,6 +53,48 @@ namespace Proiect
         public DateTime? DataExpirareITP { get; private set; }
         public string NumarTelefon { get; private set; }
 
+        private void LoadDataForEdit(int id)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection("Data Source=rca.db;Version=3;"))
+            {
+                connection.Open();
+                string query = "SELECT * FROM RCA WHERE ID = @ID";
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ID", id);
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Assuming the fields are named the same as the database columns
+                            DataExpirarePolitaDatePicker.SelectedDate = DateTime.Parse(reader["Data_Expirare_Polita"].ToString());
+                            NumarInmatriculareTextBox.Text = reader["Numar_Inmatriculare"].ToString();
+                            SerieSasiuTextBox.Text = reader["Serie_Sasiu"].ToString();
+                            CnpCuiTextBox.Text = reader["CNP_CUI"].ToString();
+                            NumeTextBox.Text = reader["Nume"].ToString();
+                            PrenumeTextBox.Text = reader["Prenume"].ToString();
+                            JudetTextBox.Text = reader["Judet"].ToString();
+                            LocalitateTextBox.Text = reader["Localitate"].ToString();
+                            AdresaTextBox.Text = reader["Adresa"].ToString();
+                            DataObtinerePermisDatePicker.SelectedDate = DateTime.Parse(reader["Data_Obtinere_Permis"].ToString());
+                            MarcaTextBox.Text = reader["Marca"].ToString();
+                            CapacitateCilindricaTextBox.Text = reader["Capacitate_Cilindrica"].ToString();
+                            NrLocuriTextBox.Text = reader["Nr_locuri"].ToString();
+                            MasaMaximaAutorizataTextBox.Text = reader["Masa_Maxima_Autorizata"].ToString();
+                            PutereMotorKwTextBox.Text = reader["Putere_Motor_kW"].ToString();
+                            TipCombustibilTextBox.Text = reader["Tip_Combustibil"].ToString();
+                            ModelTextBox.Text = reader["Model"].ToString();
+                            SerieCivTextBox.Text = reader["Serie_CIV"].ToString();
+                            AnFabricatieTextBox.Text = reader["An_Fabricatie"].ToString();
+                            NrKmTextBox.Text = reader["Nr_Km"].ToString();
+                            DataPrimeiInmatriculariDatePicker.SelectedDate = DateTime.Parse(reader["Data_Primei_Inmatriculari"].ToString());
+                            DataExpirareITPDatePicker.SelectedDate = DateTime.Parse(reader["Data_Expirare_ITP"].ToString());
+                            NumarTelefonTextBox.Text = reader["NumarTelefon"].ToString();
+                        }
+                    }
+                }
+            }
+        }
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -73,7 +123,16 @@ namespace Proiect
                 DataExpirareITP = DataExpirareITPDatePicker.SelectedDate;
                 NumarTelefon = NumarTelefonTextBox.Text;
 
-                this.DialogResult = true; // Close the window and return true to the main window
+                if (_editId.HasValue)
+                {
+                    UpdateRecord();
+                }
+                else
+                {
+                    InsertRecord();
+                }
+
+                this.DialogResult = true;
             }
             catch (Exception ex)
             {
@@ -81,9 +140,113 @@ namespace Proiect
             }
         }
 
+        private void UpdateRecord()
+        {
+            using (SQLiteConnection connection = new SQLiteConnection("Data Source=rca.db;Version=3;"))
+            {
+                connection.Open();
+                string updateQuery = @"UPDATE RCA SET 
+                                        Data_Expirare_Polita = @DataExpirarePolita,
+                                        Numar_Inmatriculare = @NumarInmatriculare,
+                                        Serie_Sasiu = @SerieSasiu,
+                                        CNP_CUI = @CnpCui,
+                                        Nume = @Nume,
+                                        Prenume = @Prenume,
+                                        Judet = @Judet,
+                                        Localitate = @Localitate,
+                                        Adresa = @Adresa,
+                                        Data_Obtinere_Permis = @DataObtinerePermis,
+                                        Marca = @Marca,
+                                        Capacitate_Cilindrica = @CapacitateCilindrica,
+                                        Nr_locuri = @NrLocuri,
+                                        Masa_Maxima_Autorizata = @MasaMaximaAutorizata,
+                                        Putere_Motor_kW = @PutereMotorKw,
+                                        Tip_Combustibil = @TipCombustibil,
+                                        Model = @Model,
+                                        Serie_CIV = @SerieCiv,
+                                        An_Fabricatie = @AnFabricatie,
+                                        Nr_Km = @NrKm,
+                                        Data_Primei_Inmatriculari = @DataPrimeiInmatriculari,
+                                        Data_Expirare_ITP = @DataExpirareITP,
+                                        NumarTelefon = @NumarTelefon
+                                    WHERE ID = @ID";
+
+                using (SQLiteCommand command = new SQLiteCommand(updateQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@ID", _editId.Value);
+                    command.Parameters.AddWithValue("@DataExpirarePolita", DataExpirarePolita);
+                    command.Parameters.AddWithValue("@NumarInmatriculare", NumarInmatriculare);
+                    command.Parameters.AddWithValue("@SerieSasiu", SerieSasiu);
+                    command.Parameters.AddWithValue("@CnpCui", CnpCui);
+                    command.Parameters.AddWithValue("@Nume", Nume);
+                    command.Parameters.AddWithValue("@Prenume", Prenume);
+                    command.Parameters.AddWithValue("@Judet", Judet);
+                    command.Parameters.AddWithValue("@Localitate", Localitate);
+                    command.Parameters.AddWithValue("@Adresa", Adresa);
+                    command.Parameters.AddWithValue("@DataObtinerePermis", DataObtinerePermis);
+                    command.Parameters.AddWithValue("@Marca", Marca);
+                    command.Parameters.AddWithValue("@CapacitateCilindrica", CapacitateCilindrica);
+                    command.Parameters.AddWithValue("@NrLocuri", NrLocuri);
+                    command.Parameters.AddWithValue("@MasaMaximaAutorizata", MasaMaximaAutorizata);
+                    command.Parameters.AddWithValue("@PutereMotorKw", PutereMotorKw);
+                    command.Parameters.AddWithValue("@TipCombustibil", TipCombustibil);
+                    command.Parameters.AddWithValue("@Model", Model);
+                    command.Parameters.AddWithValue("@SerieCiv", SerieCiv);
+                    command.Parameters.AddWithValue("@AnFabricatie", AnFabricatie);
+                    command.Parameters.AddWithValue("@NrKm", NrKm);
+                    command.Parameters.AddWithValue("@DataPrimeiInmatriculari", DataPrimeiInmatriculari);
+                    command.Parameters.AddWithValue("@DataExpirareITP", DataExpirareITP);
+                    command.Parameters.AddWithValue("@NumarTelefon", NumarTelefon);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private void InsertRecord()
+        {
+            using (SQLiteConnection connection = new SQLiteConnection("Data Source=rca.db;Version=3;"))
+            {
+                connection.Open();
+                string insertQuery = @"INSERT INTO RCA 
+                                        (Data_Expirare_Polita, Numar_Inmatriculare, Serie_Sasiu, CNP_CUI, Nume, Prenume, Judet, Localitate, Adresa, Data_Obtinere_Permis, Marca, Capacitate_Cilindrica, Nr_locuri, Masa_Maxima_Autorizata, Putere_Motor_kW, Tip_Combustibil, Model, Serie_CIV, An_Fabricatie, Nr_Km, Data_Primei_Inmatriculari, Data_Expirare_ITP, NumarTelefon) 
+                                    VALUES 
+                                        (@DataExpirarePolita, @NumarInmatriculare, @SerieSasiu, @CnpCui, @Nume, @Prenume, @Judet, @Localitate, @Adresa, @DataObtinerePermis, @Marca, @CapacitateCilindrica, @NrLocuri, @MasaMaximaAutorizata, @PutereMotorKw, @TipCombustibil, @Model, @SerieCiv, @AnFabricatie, @NrKm, @DataPrimeiInmatriculari, @DataExpirareITP, @NumarTelefon)";
+
+                using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@DataExpirarePolita", DataExpirarePolita);
+                    command.Parameters.AddWithValue("@NumarInmatriculare", NumarInmatriculare);
+                    command.Parameters.AddWithValue("@SerieSasiu", SerieSasiu);
+                    command.Parameters.AddWithValue("@CnpCui", CnpCui);
+                    command.Parameters.AddWithValue("@Nume", Nume);
+                    command.Parameters.AddWithValue("@Prenume", Prenume);
+                    command.Parameters.AddWithValue("@Judet", Judet);
+                    command.Parameters.AddWithValue("@Localitate", Localitate);
+                    command.Parameters.AddWithValue("@Adresa", Adresa);
+                    command.Parameters.AddWithValue("@DataObtinerePermis", DataObtinerePermis);
+                    command.Parameters.AddWithValue("@Marca", Marca);
+                    command.Parameters.AddWithValue("@CapacitateCilindrica", CapacitateCilindrica);
+                    command.Parameters.AddWithValue("@NrLocuri", NrLocuri);
+                    command.Parameters.AddWithValue("@MasaMaximaAutorizata", MasaMaximaAutorizata);
+                    command.Parameters.AddWithValue("@PutereMotorKw", PutereMotorKw);
+                    command.Parameters.AddWithValue("@TipCombustibil", TipCombustibil);
+                    command.Parameters.AddWithValue("@Model", Model);
+                    command.Parameters.AddWithValue("@SerieCiv", SerieCiv);
+                    command.Parameters.AddWithValue("@AnFabricatie", AnFabricatie);
+                    command.Parameters.AddWithValue("@NrKm", NrKm);
+                    command.Parameters.AddWithValue("@DataPrimeiInmatriculari", DataPrimeiInmatriculari);
+                    command.Parameters.AddWithValue("@DataExpirareITP", DataExpirareITP);
+                    command.Parameters.AddWithValue("@NumarTelefon", NumarTelefon);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = false; // Close the window and return false to the main window
+            this.DialogResult = false;
         }
     }
 }

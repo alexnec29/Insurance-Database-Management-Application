@@ -246,8 +246,6 @@ namespace Proiect
                                 }
                             }
                         }
-
-                        // Reload the data in the main window
                         LoadData();
                     }
                     catch (Exception ex)
@@ -323,7 +321,6 @@ namespace Proiect
                             }
                         }
 
-                        // Reload the data in the main window
                         LoadData();
                     }
                     catch (Exception ex)
@@ -336,7 +333,29 @@ namespace Proiect
 
         private void EditeazaButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (selectedId > 0)
+            {
+                if (connectionString == "Data Source=rca.db;Version=3;")
+                {
+                    AddWindow editWindow = new AddWindow(selectedId);
+                    if (editWindow.ShowDialog() == true)
+                    {
+                        LoadData();
+                    }
+                }
+                else if (connectionString == "Data Source=locuinte.db;Version=3;")
+                {
+                    AddWindow2 editWindow2 = new AddWindow2(selectedId);
+                    if (editWindow2.ShowDialog() == true)
+                    {
+                        LoadData();
+                    }
+                }
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Please select a record to edit.");
+            }
         }
 
         private void CautaButton_Click(object sender, RoutedEventArgs e)
@@ -384,18 +403,12 @@ namespace Proiect
             }
         }
 
-        private void SorteazaButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (DataGrid.SelectedItem != null)
             {
-                // Assuming ID is an integer column in the database
                 var selectedRow = (DataRowView)DataGrid.SelectedItem;
-                selectedId = Convert.ToInt32(selectedRow["ID"]); // Update with the appropriate column name
+                selectedId = Convert.ToInt32(selectedRow["ID"]);
             }
         }
 

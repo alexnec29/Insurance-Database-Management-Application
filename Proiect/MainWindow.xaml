@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Proiect"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="798" Background="#FF444444" Foreground="Black" ResizeMode="NoResize">
+        Title="MainWindow" Height="500" Width="831" Background="#FF444444" Foreground="Black" ResizeMode="NoResize">
     <Window.Resources>
         <Style x:Key="HighlightedButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="LightBlue"/>
@@ -14,20 +14,34 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="158,-60,0,360" Width="840">
-            <Button Click="AdaugaButton_Click" Content="ADAUGA" Background="#FFC2C2BB" Width="128" Margin="0,10" Height="40"/>
-            <Button Click="EditeazaButton_Click" Content="EDITEAZA" Background="#FFC2C2BB" Width="129" Margin="0,10" Height="40"/>
-            <Button Click="CautaButton_Click" Content="CAUTA" Background="#FFC2C2BB" Width="128" Margin="0,10" Height="40"/>
-            <Button Click="StergeButton_Click" Content="STERGE" Background="#FFC2C2BB" Width="129" Margin="0,10" Height="40"/>
-            <Button Click="SorteazaButton_Click" Content="SORTEAZA" Background="#FFC2C2BB" Width="128" Margin="0,10" Height="40"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="70*"/>
+            <ColumnDefinition Width="17*"/>
+            <ColumnDefinition Width="753*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="69,-60,0,360" Width="840" Grid.Column="3">
+            <Button Click="AdaugaButton_Click" Content="ADAUGA" Background="#FFC2C2BB" Width="163" Margin="0,10" Height="40"/>
+            <Button Click="EditeazaButton_Click" Content="EDITEAZA" Background="#FFC2C2BB" Width="184" Margin="0,10" Height="40"/>
+            <Button Click="CautaButton_Click" Content="CAUTA" Background="#FFC2C2BB" Width="177" Margin="0,10" Height="40"/>
+            <Button Click="StergeButton_Click" Content="STERGE" Background="#FFC2C2BB" Width="147" Height="40"/>
         </StackPanel>
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0,135,0,0" Width="158">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0,135,0,0" Width="158" Grid.ColumnSpan="4">
             <Button x:Name="RcaButton" Click="RcaButton_Click" Content="RCA" Background="#FFC2C2BB" Width="150" Margin="0,10" Height="48"/>
             <Button x:Name="LocuinteButton" Click="LocuinteButton_Click" Content="LOCUINTE" Background="#FFC2C2BB" Width="150" Margin="0,10" Height="45"/>
         </StackPanel>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="447" VerticalAlignment="Top" Width="840" Margin="158,37,0,0">
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="447" VerticalAlignment="Top" Width="840" Margin="69,37,0,0" Grid.Column="3">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                <DataGrid x:Name="DataGrid" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="-8,-1,0,-1" SelectionChanged="DataGrid_SelectionChanged" CanUserDeleteRows="False" CanUserAddRows="False" Background="#FFE9E9E9" Foreground="Black" BorderBrush="Black" FontFamily="Times New Roman" FontSize="18" Width="833" AlternatingRowBackground="#FFEBEBEB" MinColumnWidth="105"/>
+                <DataGrid x:Name="DataGrid" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="-8,-1,0,-1" SelectionChanged="DataGrid_SelectionChanged" CanUserDeleteRows="False" CanUserAddRows="False" Background="#FFE9E9E9" Foreground="Black" BorderBrush="Black" FontFamily="Times New Roman" FontSize="18" Width="843" AlternatingRowBackground="#FFEBEBEB" MinColumnWidth="105" RenderTransformOrigin="0.5,0.5">
+                    <DataGrid.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleY="0.108"/>
+                            <RotateTransform/>
+                            <TranslateTransform Y="0.798"/>
+                        </TransformGroup>
+                    </DataGrid.RenderTransform>
+                </DataGrid>
             </ScrollViewer>
         </Border>
     </Grid>
