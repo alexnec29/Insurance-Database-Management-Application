@@ -41,3 +41,5 @@ D:\work\Programe facute\Proiecte\Proiect\Proiect\obj\Debug\net8.0-windows\AddWin
 D:\work\Programe facute\Proiecte\Proiect\Proiect\obj\Debug\net8.0-windows\AddWindow2.g.cs
 D:\work\Programe facute\Proiecte\Proiect\Proiect\obj\Debug\net8.0-windows\SearchWindow.baml
 D:\work\Programe facute\Proiecte\Proiect\Proiect\obj\Debug\net8.0-windows\SearchWindow.g.cs
+D:\work\Programe facute\Proiecte\Proiect\Proiect\obj\Debug\net8.0-windows\AddConducatorAutoWindow.baml
+D:\work\Programe facute\Proiecte\Proiect\Proiect\obj\Debug\net8.0-windows\AddConducatorAutoWindow.g.cs

@@ -96,6 +96,26 @@ namespace Proiect
                     command.ExecuteNonQuery();
                 }
             }
+            string conducatoriAutoConnectionString = "Data Source=rca.db;Version=3;";
+            using (var connection = new SQLiteConnection(conducatoriAutoConnectionString))
+            {
+                connection.Open();
+                string sqlConducatoriAuto = @"CREATE TABLE IF NOT EXISTS conducatoriAuto (
+                    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                    NumarTelefon TEXT,
+                    Nume TEXT,
+                    Prenume TEXT,
+                    CNP_CUI TEXT,
+                    SerieCI TEXT,
+                    NumarCI TEXT,
+                    rcaID INT,
+                    FOREIGN KEY (rcaID) REFERENCES RCA(ID)
+                 );";
+                using (var command = new SQLiteCommand(sqlConducatoriAuto, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+            }
         }
         private void LoadData()
         {
@@ -115,7 +135,6 @@ namespace Proiect
                 {
                     dataTable.Columns["Data_Expirarii"].ColumnName = "Data Expirarii";
                     dataTable.Columns["Adresa_De_Domiciliu"].ColumnName = "Adresa de Domiciliu";
-
                 }
                 else if (connectionString == "Data Source=rca.db;Version=3;")
                 {

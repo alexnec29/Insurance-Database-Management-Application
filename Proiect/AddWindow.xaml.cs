@@ -18,15 +18,20 @@ namespace Proiect
     public partial class AddWindow : Window
     {
         private int? _editId = null;
+        private int rcaID;
+        private string connectionString = "Data Source=rca.db;Version=3;";
+        private List<Driver> drivers;
         public AddWindow()
         {
             InitializeComponent();
+            ConducatoriAutoStackPanel.Visibility = Visibility.Collapsed;
         }
         public AddWindow(int id)
         {
             InitializeComponent();
             _editId = id;
             LoadDataForEdit(_editId.Value);
+            LoadDrivers();
         }
 
         public DateTime? DataExpirarePolita { get; set; }
@@ -248,5 +253,84 @@ namespace Proiect
         {
             this.DialogResult = false;
         }
+
+        private void LoadDrivers()
+        {
+            drivers = new List<Driver>();
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT * FROM conducatoriAuto WHERE rcaID = @rcaID";
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@rcaID", rcaID);
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            drivers.Add(new Driver
+                            {
+                                ID = reader.GetInt32(0),
+                                Nume = reader.GetString(2),
+                                Prenume = reader.GetString(3),
+                                CNP_CUI = reader.GetString(4),
+                            });
+                        }
+                    }
+                }
+            }
+            ConducatoriAutoListBox.ItemsSource = drivers;
+        }
+
+        private void AdaugaConducatorAuto_Click(object sender, RoutedEventArgs e)
+        {
+            var addConducatorAutoWindow = new AddConducatorAutoWindow(rcaID);
+            if (addConducatorAutoWindow.ShowDialog() == true)
+            {
+                LoadDrivers();
+            }
+        }
+
+        private void ViewConducatorAuto_Click(object sender, RoutedEventArgs e)
+        {
+            //System.Windows.Forms.Button btn = sender as System.Windows.Forms.Button;
+            //Driver selectedDriver = (Driver)((StackPanel)btn.Parent).DataContext;
+            //var viewConducatorAutoWindow = new ViewConducatorAutoWindow(selectedDriver.ID);
+            //viewConducatorAutoWindow.ShowDialog();
+        }
+
+        private void DeleteConducatorAuto_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.Button btn = sender as System.Windows.Controls.Button;
+            Driver selectedDriver = (Driver)((StackPanel)btn.Parent).DataContext;
+
+            MessageBoxResult result = System.Windows.MessageBox.Show($"Are you sure you want to delete {selectedDriver.Nume} {selectedDriver.Prenume}?", "Confirm", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                using (var connection = new SQLiteConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "DELETE FROM conducatoriAuto WHERE ID = @driverID";
+                    using (var command = new SQLiteCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@driverID", selectedDriver.ID);
+                        command.ExecuteNonQuery();
+                    }
+                }
+                LoadDrivers();
+            }
+        }
+
+        private void ConducatoriAutoListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+    }
+    public class Driver
+    {
+        public int ID { get; set; }
+        public string Nume { get; set; }
+        public string Prenume { get; set; }
+        public string CNP_CUI { get; set; }
     }
 }
