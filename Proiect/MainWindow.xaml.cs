@@ -41,19 +41,19 @@ namespace Proiect
                 connection.Open();
                 string sqlLocuinte = @"CREATE TABLE IF NOT EXISTS Locuinte (
                         ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                        Data_Expirarii DATE,
-                        NumarTelefon TEXT,
-                        Nume TEXT,
-                        Prenume TEXT,
-                        CNP_CUI TEXT,
-                        Adresa_Asigurata TEXT,
-                        Adresa_De_Domiciliu TEXT,
-                        Suprafata_m2 INT,  
-                        An_Constructie INT,
-                        Nr_Camere INT,
-                        Nr_Etaje INT,
-                        Nr_Cladiri_La_Aceeasi_Adresa INT,
-                        Material_Constructie TEXT
+                        Data_Expirarii DATE NULL,
+                        CNP_CUI TEXT NULL,
+                        Nume TEXT NULL,
+                        Prenume TEXT NULL,
+                        Adresa_Asigurata TEXT NULL,
+                        Adresa_De_Domiciliu TEXT NULL,
+                        NumarTelefon TEXT NULL,
+                        Suprafata_m2 INTEGER NULL,
+                        An_Constructie INTEGER NULL,
+                        Nr_Camere INTEGER NULL,
+                        Nr_Etaje INTEGER NULL,
+                        Nr_Cladiri_La_Aceeasi_Adresa INTEGER NULL,
+                        Material_Constructie TEXT NULL
                       );";
                 using (var command = new SQLiteCommand(sqlLocuinte, connection))
                 {
@@ -67,29 +67,29 @@ namespace Proiect
                 connection.Open();
                 string sqlRca = @"CREATE TABLE IF NOT EXISTS RCA (
                             ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                            Data_Expirare_Polita DATE,
-                            Numar_Inmatriculare TEXT,
-                            Serie_Sasiu TEXT,
-                            CNP_CUI TEXT,
-                            Nume TEXT,
-                            Prenume TEXT,
-                            Judet TEXT,
-                            Localitate TEXT,
-                            Adresa TEXT,
-                            Data_Obtinere_Permis DATE,
-                            Marca TEXT,
-                            Capacitate_Cilindrica INT,
-                            Nr_locuri SMALLINT, 
-                            Masa_Maxima_Autorizata INT,
-                            Putere_Motor_kW SMALLINT,
-                            Tip_Combustibil TEXT,
-                            Model TEXT,
-                            Serie_CIV TEXT,
-                            An_Fabricatie SMALLINT,
-                            Nr_Km INT,
-                            Data_Primei_Inmatriculari DATE,
-                            Data_Expirare_ITP DATE,
-                            NumarTelefon TEXT
+                            Data_Expirare_Polita DATE NULL,
+                            Numar_Inmatriculare TEXT NULL,
+                            Serie_Sasiu TEXT NULL,
+                            CNP_CUI TEXT NULL,
+                            Nume TEXT NULL,
+                            Prenume TEXT NULL,
+                            Judet TEXT NULL,
+                            Localitate TEXT NULL,
+                            Adresa TEXT NULL,
+                            Data_Obtinere_Permis DATE NULL,
+                            Marca TEXT NULL,
+                            Capacitate_Cilindrica INT NULL,
+                            Nr_locuri SMALLINT NULL, 
+                            Masa_Maxima_Autorizata INT NULL,
+                            Putere_Motor_kW SMALLINT NULL,
+                            Tip_Combustibil TEXT NULL,
+                            Model TEXT NULL,
+                            Serie_CIV TEXT NULL,
+                            An_Fabricatie SMALLINT NULL,
+                            Nr_Km INT NULL,
+                            Data_Primei_Inmatriculari DATE NULL,
+                            Data_Expirare_ITP DATE NULL,
+                            NumarTelefon TEXT NULL
                         );";
                 using (var command = new SQLiteCommand(sqlRca, connection))
                 {
@@ -102,12 +102,12 @@ namespace Proiect
                 connection.Open();
                 string sqlConducatoriAuto = @"CREATE TABLE IF NOT EXISTS conducatoriAuto (
                     ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                    NumarTelefon TEXT,
-                    Nume TEXT,
-                    Prenume TEXT,
-                    CNP_CUI TEXT,
-                    SerieCI TEXT,
-                    NumarCI TEXT,
+                    NumarTelefon TEXT NULL,
+                    Nume TEXT NULL,
+                    Prenume TEXT NULL,
+                    CNP_CUI TEXT NULL,
+                    SerieCI TEXT NULL,
+                    NumarCI TEXT NULL,
                     rcaID INT,
                     FOREIGN KEY (rcaID) REFERENCES RCA(ID)
                  );";
@@ -123,23 +123,28 @@ namespace Proiect
             {
                 connection.Open();
                 string selectQuery = "";
-                if (connectionString == "Data Source=locuinte.db;Version=3;") selectQuery = "SELECT NumarTelefon, Data_Expirarii, Nume, Prenume,Adresa_De_Domiciliu FROM Locuinte";
-                else if (connectionString == "Data Source=rca.db;Version=3;") selectQuery = "SELECT NumarTelefon, Data_Expirare_Polita, Numar_Inmatriculare, Nume, Prenume FROM RCA";
+                if (connectionString == "Data Source=locuinte.db;Version=3;")
+                {
+                    selectQuery = "SELECT ID, Data_Expirarii, Nume, Prenume, Adresa_De_Domiciliu FROM Locuinte";
+                }
+                else if (connectionString == "Data Source=rca.db;Version=3;")
+                {
+                    selectQuery = "SELECT ID, Data_Expirare_Polita, Numar_Inmatriculare, Nume, Prenume FROM RCA";
+                }
+
                 SQLiteCommand command = new SQLiteCommand(selectQuery, connection);
                 SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
 
-                System.Data.DataTable dataTable = new System.Data.DataTable();
+                DataTable dataTable = new DataTable();
                 adapter.Fill(dataTable);
 
                 if (connectionString == "Data Source=locuinte.db;Version=3;")
                 {
-                    dataTable.Columns["NumarTelefon"].ColumnName = "Numar Telefon";
                     dataTable.Columns["Data_Expirarii"].ColumnName = "Data Expirarii";
                     dataTable.Columns["Adresa_De_Domiciliu"].ColumnName = "Adresa de Domiciliu";
                 }
                 else if (connectionString == "Data Source=rca.db;Version=3;")
                 {
-                    dataTable.Columns["NumarTelefon"].ColumnName = "Numar Telefon";
                     dataTable.Columns["Data_Expirare_Polita"].ColumnName = "Data Expirarii Politei";
                     dataTable.Columns["Numar_Inmatriculare"].ColumnName = "Numar Inmatriculare";
                 }
@@ -287,8 +292,16 @@ namespace Proiect
         {
             if (DataGrid.SelectedItem != null)
             {
-                var selectedRow = (DataRowView)DataGrid.SelectedItem;
-                selectedId = Convert.ToInt32(selectedRow["ID"]);
+                var selectedRow = DataGrid.SelectedItem as DataRowView;
+
+                if (selectedRow != null && selectedRow["ID"] != DBNull.Value)
+                {
+                    selectedId = Convert.ToInt32(selectedRow["ID"]);
+                }
+                else
+                {
+                    selectedId = -1;
+                }
             }
         }
 
