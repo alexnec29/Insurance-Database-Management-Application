@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,7 @@ namespace Proiect
         private int rcaID;
         private string connectionString = "Data Source=rca.db;Version=3;";
         private List<Driver> drivers;
+        private int selectedId;
         public AddWindow()
         {
             InitializeComponent();
@@ -30,6 +32,7 @@ namespace Proiect
         {
             InitializeComponent();
             _editId = id;
+            rcaID = id;
             LoadDataForEdit(_editId.Value);
             LoadDrivers();
         }
@@ -71,7 +74,6 @@ namespace Proiect
                     {
                         if (reader.Read())
                         {
-                            // Assuming the fields are named the same as the database columns
                             DataExpirarePolitaDatePicker.SelectedDate = DateTime.Parse(reader["Data_Expirare_Polita"].ToString());
                             NumarInmatriculareTextBox.Text = reader["Numar_Inmatriculare"].ToString();
                             SerieSasiuTextBox.Text = reader["Serie_Sasiu"].ToString();
@@ -291,39 +293,78 @@ namespace Proiect
             }
         }
 
-        private void ViewConducatorAuto_Click(object sender, RoutedEventArgs e)
+        private void EditConducatorAuto_Click(object sender, RoutedEventArgs e)
         {
-            //System.Windows.Forms.Button btn = sender as System.Windows.Forms.Button;
-            //Driver selectedDriver = (Driver)((StackPanel)btn.Parent).DataContext;
-            //var viewConducatorAutoWindow = new ViewConducatorAutoWindow(selectedDriver.ID);
-            //viewConducatorAutoWindow.ShowDialog();
+            try
+            {
+                var button = sender as System.Windows.Controls.Button; // Ensure you are using Button, not System.Windows.Forms.Button
+                if (button != null)
+                {
+                    int driverId;
+                    if (int.TryParse(button.Tag.ToString(), out driverId) && driverId > 0)
+                    {
+                        // Open edit window with the selected driver ID
+                        AddConducatorAutoWindow editDriverWindow = new AddConducatorAutoWindow(rcaID, driverId);
+                        if (editDriverWindow.ShowDialog() == true)
+                        {
+                            LoadDrivers(); // Reload the drivers list after editing
+                        }
+                    }
+                    else
+                    {
+                        System.Windows.MessageBox.Show("Invalid driver ID.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void DeleteConducatorAuto_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.Controls.Button btn = sender as System.Windows.Controls.Button;
-            Driver selectedDriver = (Driver)((StackPanel)btn.Parent).DataContext;
-
-            MessageBoxResult result = System.Windows.MessageBox.Show($"Are you sure you want to delete {selectedDriver.Nume} {selectedDriver.Prenume}?", "Confirm", MessageBoxButton.YesNo);
-            if (result == MessageBoxResult.Yes)
+            try
             {
-                using (var connection = new SQLiteConnection(connectionString))
+                var button = sender as System.Windows.Controls.Button;
+                if (button != null)
                 {
-                    connection.Open();
-                    string query = "DELETE FROM conducatoriAuto WHERE ID = @driverID";
-                    using (var command = new SQLiteCommand(query, connection))
+                    int driverId = (int)button.Tag;
+
+                    var result = System.Windows.MessageBox.Show("Are you sure you want to delete this driver?", "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    if (result == MessageBoxResult.Yes)
                     {
-                        command.Parameters.AddWithValue("@driverID", selectedDriver.ID);
-                        command.ExecuteNonQuery();
+                        DeleteDriver(driverId);
+                        LoadDrivers();
                     }
                 }
-                LoadDrivers();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void DeleteDriver(int driverId)
+        {
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                string deleteQuery = "DELETE FROM conducatoriAuto WHERE ID = @ID";
+                using (var command = new SQLiteCommand(deleteQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@ID", driverId);
+                    command.ExecuteNonQuery();
+                }
             }
         }
 
         private void ConducatoriAutoListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if (ConducatoriAutoListBox.SelectedItem is Driver selectedDriver)
+            {
+                selectedId = selectedDriver.ID;
+            }
         }
     }
     public class Driver

@@ -123,8 +123,8 @@ namespace Proiect
             {
                 connection.Open();
                 string selectQuery = "";
-                if (connectionString == "Data Source=locuinte.db;Version=3;") selectQuery = "SELECT ID, Data_Expirarii, Nume, Prenume,Adresa_De_Domiciliu FROM Locuinte";
-                else if (connectionString == "Data Source=rca.db;Version=3;") selectQuery = "SELECT ID, Data_Expirare_Polita, Numar_Inmatriculare, Nume, Prenume FROM RCA";
+                if (connectionString == "Data Source=locuinte.db;Version=3;") selectQuery = "SELECT NumarTelefon, Data_Expirarii, Nume, Prenume,Adresa_De_Domiciliu FROM Locuinte";
+                else if (connectionString == "Data Source=rca.db;Version=3;") selectQuery = "SELECT NumarTelefon, Data_Expirare_Polita, Numar_Inmatriculare, Nume, Prenume FROM RCA";
                 SQLiteCommand command = new SQLiteCommand(selectQuery, connection);
                 SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
 
@@ -133,11 +133,13 @@ namespace Proiect
 
                 if (connectionString == "Data Source=locuinte.db;Version=3;")
                 {
+                    dataTable.Columns["NumarTelefon"].ColumnName = "Numar Telefon";
                     dataTable.Columns["Data_Expirarii"].ColumnName = "Data Expirarii";
                     dataTable.Columns["Adresa_De_Domiciliu"].ColumnName = "Adresa de Domiciliu";
                 }
                 else if (connectionString == "Data Source=rca.db;Version=3;")
                 {
+                    dataTable.Columns["NumarTelefon"].ColumnName = "Numar Telefon";
                     dataTable.Columns["Data_Expirare_Polita"].ColumnName = "Data Expirarii Politei";
                     dataTable.Columns["Numar_Inmatriculare"].ColumnName = "Numar Inmatriculare";
                 }
@@ -169,187 +171,30 @@ namespace Proiect
 
         private void AdaugaButton_Click(object sender, RoutedEventArgs e)
         {
-            if(connectionString == "Data Source=rca.db;Version=3;")
+            try
             {
-                AddWindow addWindow = new AddWindow();
-                if (addWindow.ShowDialog() == true)
+                if (connectionString == "Data Source=rca.db;Version=3;")
                 {
-                    try
+                    AddWindow addWindow = new AddWindow();
+                    if (addWindow.ShowDialog() == true)
                     {
-                        using (SQLiteConnection connection = new SQLiteConnection(connectionString))
-                        {
-                            connection.Open();
-                            string insertQuery = @"INSERT INTO RCA (
-                                            Data_Expirare_Polita,
-                                            Numar_Inmatriculare,
-                                            Serie_Sasiu,
-                                            CNP_CUI,
-                                            Nume,
-                                            Prenume,
-                                            Judet,
-                                            Localitate,
-                                            Adresa,
-                                            Data_Obtinere_Permis,
-                                            Marca,
-                                            Capacitate_Cilindrica,
-                                            Nr_locuri,
-                                            Masa_Maxima_Autorizata,
-                                            Putere_Motor_kW,
-                                            Tip_Combustibil,
-                                            Model,
-                                            Serie_CIV,
-                                            An_Fabricatie,
-                                            Nr_Km,
-                                            Data_Primei_Inmatriculari,
-                                            Data_Expirare_ITP,
-                                            NumarTelefon) 
-                                        VALUES (
-                                            @DataExpirarePolita,
-                                            @NumarInmatriculare,
-                                            @SerieSasiu,
-                                            @CnpCui,
-                                            @Nume,
-                                            @Prenume,
-                                            @Judet,
-                                            @Localitate,
-                                            @Adresa,
-                                            @DataObtinerePermis,
-                                            @Marca,
-                                            @CapacitateCilindrica,
-                                            @NrLocuri,
-                                            @MasaMaximaAutorizata,
-                                            @PutereMotorKw,
-                                            @TipCombustibil,
-                                            @Model,
-                                            @SerieCiv,
-                                            @AnFabricatie,
-                                            @NrKm,
-                                            @DataPrimeiInmatriculari,
-                                            @DataExpirareITP,
-                                            @NumarTelefon);";
-
-                            using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
-                            {
-                                command.Parameters.AddWithValue("@DataExpirarePolita", addWindow.DataExpirarePolita);
-                                command.Parameters.AddWithValue("@NumarInmatriculare", addWindow.NumarInmatriculare);
-                                command.Parameters.AddWithValue("@SerieSasiu", addWindow.SerieSasiu);
-                                command.Parameters.AddWithValue("@CnpCui", addWindow.CnpCui);
-                                command.Parameters.AddWithValue("@Nume", addWindow.Nume);
-                                command.Parameters.AddWithValue("@Prenume", addWindow.Prenume);
-                                command.Parameters.AddWithValue("@Judet", addWindow.Judet);
-                                command.Parameters.AddWithValue("@Localitate", addWindow.Localitate);
-                                command.Parameters.AddWithValue("@Adresa", addWindow.Adresa);
-                                command.Parameters.AddWithValue("@DataObtinerePermis", addWindow.DataObtinerePermis);
-                                command.Parameters.AddWithValue("@Marca", addWindow.Marca);
-                                command.Parameters.AddWithValue("@CapacitateCilindrica", addWindow.CapacitateCilindrica);
-                                command.Parameters.AddWithValue("@NrLocuri", addWindow.NrLocuri);
-                                command.Parameters.AddWithValue("@MasaMaximaAutorizata", addWindow.MasaMaximaAutorizata);
-                                command.Parameters.AddWithValue("@PutereMotorKw", addWindow.PutereMotorKw);
-                                command.Parameters.AddWithValue("@TipCombustibil", addWindow.TipCombustibil);
-                                command.Parameters.AddWithValue("@Model", addWindow.Model);
-                                command.Parameters.AddWithValue("@SerieCiv", addWindow.SerieCiv);
-                                command.Parameters.AddWithValue("@AnFabricatie", addWindow.AnFabricatie);
-                                command.Parameters.AddWithValue("@NrKm", addWindow.NrKm);
-                                command.Parameters.AddWithValue("@DataPrimeiInmatriculari", addWindow.DataPrimeiInmatriculari);
-                                command.Parameters.AddWithValue("@DataExpirareITP", addWindow.DataExpirareITP);
-                                command.Parameters.AddWithValue("@NumarTelefon", addWindow.NumarTelefon);
-
-                                int rowsAffected = command.ExecuteNonQuery();
-                                if (rowsAffected > 0)
-                                {
-                                    System.Windows.MessageBox.Show("Data added successfully.");
-                                }
-                                else
-                                {
-                                    System.Windows.MessageBox.Show("Failed to add data.");
-                                }
-                            }
-                        }
                         LoadData();
                     }
-                    catch (Exception ex)
+                }
+                else if (connectionString == "Data Source=locuinte.db;Version=3;")
+                {
+                    AddWindow2 addWindow2 = new AddWindow2();
+                    if (addWindow2.ShowDialog() == true)
                     {
-                        System.Windows.MessageBox.Show($"An error occurred: {ex.Message}");
+                        LoadData();
                     }
                 }
             }
-            else if(connectionString == "Data Source=locuinte.db;Version=3;")
+            catch (Exception ex)
             {
-                AddWindow2 addWindow2 = new AddWindow2();
-                if (addWindow2.ShowDialog() == true)
-                {
-                    try
-                    {
-                        using (SQLiteConnection connection = new SQLiteConnection(connectionString))
-                        {
-                            connection.Open();
-                            string insertQuery = @"INSERT INTO Locuinte (
-                                            Data_Expirarii,
-                                            NumarTelefon,
-                                            Nume,
-                                            Prenume,
-                                            CNP_CUI,
-                                            Adresa_Asigurata,
-                                            Adresa_De_Domiciliu,
-                                            Suprafata_m2,  
-                                            An_Constructie,
-                                            Nr_Camere,
-                                            Nr_Etaje,
-                                            Nr_Cladiri_La_Aceeasi_Adresa,
-                                            Material_Constructie) 
-                                        VALUES (
-                                            @Data_Expirarii,
-                                            @NumarTelefon,
-                                            @Nume,
-                                            @Prenume,
-                                            @CNP_CUI,
-                                            @Adresa_Asigurata,
-                                            @Adresa_De_Domiciliu,
-                                            @Suprafata_m2,  
-                                            @An_Constructie,
-                                            @Nr_Camere,
-                                            @Nr_Etaje,
-                                            @Nr_Cladiri_La_Aceeasi_Adresa,
-                                            @Material_Constructie);";
-
-                            using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
-                            {
-                                command.Parameters.AddWithValue("@Data_Expirarii", addWindow2.Data_Expirarii);
-                                command.Parameters.AddWithValue("@NumarTelefon", addWindow2.NumarTelefon);
-                                command.Parameters.AddWithValue("@Nume", addWindow2.Nume);
-                                command.Parameters.AddWithValue("@Prenume", addWindow2.Prenume);
-                                command.Parameters.AddWithValue("@CNP_CUI", addWindow2.CNP_CUI);
-                                command.Parameters.AddWithValue("@Adresa_Asigurata", addWindow2.Adresa_Asigurata);
-                                command.Parameters.AddWithValue("@Adresa_De_Domiciliu", addWindow2.Adresa_De_Domiciliu);
-                                command.Parameters.AddWithValue("@Suprafata_m2", addWindow2.Suprafata_m2);
-                                command.Parameters.AddWithValue("@An_Constructie", addWindow2.An_Constructie);
-                                command.Parameters.AddWithValue("@Nr_Camere", addWindow2.Nr_Camere);
-                                command.Parameters.AddWithValue("@Nr_Etaje", addWindow2.Nr_Etaje);
-                                command.Parameters.AddWithValue("@Nr_Cladiri_La_Aceeasi_Adresa", addWindow2.Nr_Cladiri_La_Aceeasi_Adresa);
-                                command.Parameters.AddWithValue("@Material_Constructie", addWindow2.Material_Constructie);
-
-                                int rowsAffected = command.ExecuteNonQuery();
-                                if (rowsAffected > 0)
-                                {
-                                    System.Windows.MessageBox.Show("Data added successfully.");
-                                }
-                                else
-                                {
-                                    System.Windows.MessageBox.Show("Failed to add data.");
-                                }
-                            }
-                        }
-
-                        LoadData();
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Windows.MessageBox.Show($"An error occurred: {ex.Message}");
-                    }
-                }
+                System.Windows.MessageBox.Show($"An error occurred: {ex.Message}");
             }
         }
-
         private void EditeazaButton_Click(object sender, RoutedEventArgs e)
         {
             if (selectedId > 0)
@@ -383,10 +228,8 @@ namespace Proiect
 
             if (searchWindow.ShowDialog() == true)
             {
-                // Display the search results in the DataGrid
                 DataGrid.ItemsSource = searchWindow.SearchResult.DefaultView;
 
-                // Optionally adjust any additional column settings here
                 if (connectionString == "Data Source=locuinte.db;Version=3;")
                 {
                     DataGrid.Columns[1].Header = "Data Expirarii";

@@ -91,18 +91,45 @@ namespace Proiect
             try
             {
                 Data_Expirarii = DataExpirariiDatePicker.SelectedDate;
-                NumarTelefon = NumarTelefonTextBox.Text;
                 CNP_CUI = CNP_CUITextBox.Text;
                 Nume = NumeTextBox.Text;
                 Prenume = PrenumeTextBox.Text;
                 Adresa_Asigurata = Adresa_AsigurataTextBox.Text;
                 Adresa_De_Domiciliu = Adresa_De_DomiciliuTextBox.Text;
-                Suprafata_m2 = int.Parse(Suprafata_m2TextBox.Text);
-                An_Constructie = int.Parse(An_ConstructieTextBox.Text);
-                Nr_Camere = int.Parse(Nr_CamereTextBox.Text);
-                Nr_Etaje = int.Parse(Nr_EtajeTextBox.Text);
-                Nr_Cladiri_La_Aceeasi_Adresa = int.Parse(Nr_Cladiri_La_Aceeasi_AdresaTextBox.Text);
+                NumarTelefon = NumarTelefonTextBox.Text;
+
+                if (!int.TryParse(Suprafata_m2TextBox.Text, out int suprafata))
+                {
+                    throw new FormatException("Suprafata_m2 must be an integer.");
+                }
+                Suprafata_m2 = suprafata;
+
+                if (!int.TryParse(An_ConstructieTextBox.Text, out int anConstructie))
+                {
+                    throw new FormatException("An_Constructie must be an integer.");
+                }
+                An_Constructie = anConstructie;
+
+                if (!int.TryParse(Nr_CamereTextBox.Text, out int nrCamere))
+                {
+                    throw new FormatException("Nr_Camere must be an integer.");
+                }
+                Nr_Camere = nrCamere;
+
+                if (!int.TryParse(Nr_EtajeTextBox.Text, out int nrEtaje))
+                {
+                    throw new FormatException("Nr_Etaje must be an integer.");
+                }
+                Nr_Etaje = nrEtaje;
+
+                if (!int.TryParse(Nr_Cladiri_La_Aceeasi_AdresaTextBox.Text, out int nrCladiri))
+                {
+                    throw new FormatException("Nr_Cladiri_La_Aceeasi_Adresa must be an integer.");
+                }
+                Nr_Cladiri_La_Aceeasi_Adresa = nrCladiri;
+
                 Material_Constructie = Material_ConstructieTextBox.Text;
+
                 if (_editId.HasValue)
                 {
                     UpdateRecord();
@@ -111,11 +138,16 @@ namespace Proiect
                 {
                     InsertRecord();
                 }
+
                 this.DialogResult = true;
+            }
+            catch (FormatException fe)
+            {
+                System.Windows.MessageBox.Show($"Invalid data format: {fe.Message}", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Please enter valid data.\nError: {ex.Message}", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Warning);
+                System.Windows.MessageBox.Show($"Error processing request: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -167,28 +199,41 @@ namespace Proiect
             using (SQLiteConnection connection = new SQLiteConnection("Data Source=locuinte.db;Version=3;"))
             {
                 connection.Open();
-                string insertQuery = @"INSERT INTO Locuinte
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        string insertQuery = @"INSERT INTO Locuinte
                                         (Data_Expirarii, CNP_CUI, Nume, Prenume, Adresa_Asigurata, Adresa_De_Domiciliu, NumarTelefon, Suprafata_m2, An_Constructie, Nr_Camere, Nr_Etaje, Nr_Cladiri_La_Aceeasi_Adresa, Material_Constructie) 
                                     VALUES 
                                         (@Data_Expirarii, @CNP_CUI, @Nume, @Prenume, @Adresa_Asigurata, @Adresa_De_Domiciliu, @NumarTelefon, @Suprafata_m2, @An_Constructie, @Nr_Camere, @Nr_Etaje, @Nr_Cladiri_La_Aceeasi_Adresa, @Material_Constructie)";
 
-                using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
-                {
-                    command.Parameters.AddWithValue("@Data_Expirarii", Data_Expirarii);
-                    command.Parameters.AddWithValue("@CNP_CUI", CNP_CUI);
-                    command.Parameters.AddWithValue("@Nume", Nume);
-                    command.Parameters.AddWithValue("@Prenume", Prenume);
-                    command.Parameters.AddWithValue("@Adresa_Asigurata", Adresa_Asigurata);
-                    command.Parameters.AddWithValue("@Adresa_De_Domiciliu", Adresa_De_Domiciliu);
-                    command.Parameters.AddWithValue("@NumarTelefon", NumarTelefon);
-                    command.Parameters.AddWithValue("@Suprafata_m2", Suprafata_m2);
-                    command.Parameters.AddWithValue("@An_Constructie", An_Constructie);
-                    command.Parameters.AddWithValue("@Nr_Camere", Nr_Camere);
-                    command.Parameters.AddWithValue("@Nr_Etaje", Nr_Etaje);
-                    command.Parameters.AddWithValue("@Nr_Cladiri_La_Aceeasi_Adresa", Nr_Cladiri_La_Aceeasi_Adresa);
-                    command.Parameters.AddWithValue("@Material_Constructie", Material_Constructie);
+                        using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@Data_Expirarii", Data_Expirarii);
+                            command.Parameters.AddWithValue("@CNP_CUI", CNP_CUI);
+                            command.Parameters.AddWithValue("@Nume", Nume);
+                            command.Parameters.AddWithValue("@Prenume", Prenume);
+                            command.Parameters.AddWithValue("@Adresa_Asigurata", Adresa_Asigurata);
+                            command.Parameters.AddWithValue("@Adresa_De_Domiciliu", Adresa_De_Domiciliu);
+                            command.Parameters.AddWithValue("@NumarTelefon", NumarTelefon);
+                            command.Parameters.AddWithValue("@Suprafata_m2", Suprafata_m2);
+                            command.Parameters.AddWithValue("@An_Constructie", An_Constructie);
+                            command.Parameters.AddWithValue("@Nr_Camere", Nr_Camere);
+                            command.Parameters.AddWithValue("@Nr_Etaje", Nr_Etaje);
+                            command.Parameters.AddWithValue("@Nr_Cladiri_La_Aceeasi_Adresa", Nr_Cladiri_La_Aceeasi_Adresa);
+                            command.Parameters.AddWithValue("@Material_Constructie", Material_Constructie);
 
-                    command.ExecuteNonQuery();
+                            command.ExecuteNonQuery();
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
                 }
             }
         }

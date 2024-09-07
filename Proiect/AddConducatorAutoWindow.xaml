@@ -35,7 +35,7 @@
         <Label Content="Numar CI:" HorizontalAlignment="Left" Grid.Row="5" Grid.Column="0" VerticalAlignment="Top" Margin="10,10,0,0"/>
         <TextBox x:Name="NumarCITextBox" Width="200" Height="30" Grid.Row="5" Grid.Column="1" VerticalAlignment="Top" Margin="80,10,0,0"/>
 
-        <Button Content="Add" Width="100" Height="30" Grid.Row="6" Grid.Column="0" VerticalAlignment="Bottom" Margin="80,0,0,10" Click="AddButton_Click"/>
+        <Button Content="Ok" Width="100" Height="30" Grid.Row="6" Grid.Column="0" VerticalAlignment="Bottom" Margin="80,0,0,10" Click="AddButton_Click"/>
         <Button Content="Cancel" Width="100" Height="30" Grid.Row="6" Grid.Column="1" VerticalAlignment="Bottom" Margin="200,0,0,10" Click="CancelButton_Click"/>
 	</Grid>
 </Window>

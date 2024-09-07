@@ -18,12 +18,55 @@ namespace Proiect
     public partial class AddConducatorAutoWindow : Window
     {
         private int rcaID;
+        private int? conducatorAutoID;
         private string connectionString = "Data Source=rca.db;Version=3;";
 
-        public AddConducatorAutoWindow(int rcaID)
+        public AddConducatorAutoWindow(int rcaID, int? conducatorAutoID = null)
         {
             InitializeComponent();
             this.rcaID = rcaID;
+            this.conducatorAutoID = conducatorAutoID;
+
+            if (conducatorAutoID.HasValue)
+            {
+                LoadConducatorAutoData(conducatorAutoID.Value);
+            }
+        }
+
+        private void LoadConducatorAutoData(int conducatorAutoID)
+        {
+            try
+            {
+                using (var connection = new SQLiteConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT NumarTelefon, Nume, Prenume, CNP_CUI, SerieCI, NumarCI FROM conducatoriAuto WHERE ID = @ID";
+                    using (var command = new SQLiteCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@ID", conducatorAutoID);
+                        using (var reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                NumarTelefonTextBox.Text = reader["NumarTelefon"].ToString();
+                                NumeTextBox.Text = reader["Nume"].ToString();
+                                PrenumeTextBox.Text = reader["Prenume"].ToString();
+                                CNPTextBox.Text = reader["CNP_CUI"].ToString();
+                                SerieCITextBox.Text = reader["SerieCI"].ToString();
+                                NumarCITextBox.Text = reader["NumarCI"].ToString();
+                            }
+                            else
+                            {
+                                System.Windows.MessageBox.Show($"No data found for ID: {conducatorAutoID}", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"An error occurred while loading data: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         private void EnableForeignKeyConstraints(SQLiteConnection connection)
         {
@@ -52,8 +95,27 @@ namespace Proiect
                         {
                             EnableForeignKeyConstraints(connection);
 
-                            string query = @"INSERT INTO conducatoriAuto (NumarTelefon, Nume, Prenume, CNP_CUI, SerieCI, NumarCI, rcaID) 
-                             VALUES (@NumarTelefon, @Nume, @Prenume, @CNP_CUI, @SerieCI, @NumarCI, @rcaID)";
+                            string query;
+                            if (conducatorAutoID.HasValue)
+                            {
+                                // Edit mode, update existing record
+                                query = @"UPDATE conducatoriAuto SET 
+                                  NumarTelefon = @NumarTelefon, 
+                                  Nume = @Nume, 
+                                  Prenume = @Prenume, 
+                                  CNP_CUI = @CNP_CUI, 
+                                  SerieCI = @SerieCI, 
+                                  NumarCI = @NumarCI 
+                                  WHERE ID = @ID";
+                            }
+                            else
+                            {
+                                // Add mode, insert new record
+                                query = @"INSERT INTO conducatoriAuto 
+                                  (NumarTelefon, Nume, Prenume, CNP_CUI, SerieCI, NumarCI, rcaID) 
+                                  VALUES (@NumarTelefon, @Nume, @Prenume, @CNP_CUI, @SerieCI, @NumarCI, @rcaID)";
+                            }
+
                             using (var command = new SQLiteCommand(query, connection))
                             {
                                 command.Parameters.AddWithValue("@NumarTelefon", numarTelefon);
@@ -62,7 +124,18 @@ namespace Proiect
                                 command.Parameters.AddWithValue("@CNP_CUI", cnpCUI);
                                 command.Parameters.AddWithValue("@SerieCI", serieCI);
                                 command.Parameters.AddWithValue("@NumarCI", numarCI);
-                                command.Parameters.AddWithValue("@rcaID", rcaID);
+
+                                if (conducatorAutoID.HasValue)
+                                {
+                                    // In update mode, pass the conducatorAutoID to the query
+                                    command.Parameters.AddWithValue("@ID", conducatorAutoID.Value);
+                                }
+                                else
+                                {
+                                    // In insert mode, pass rcaID
+                                    command.Parameters.AddWithValue("@rcaID", rcaID);
+                                }
+
                                 command.ExecuteNonQuery();
                             }
                             transaction.Commit();

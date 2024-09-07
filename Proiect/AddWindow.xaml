@@ -139,8 +139,8 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding Nume}" Margin="0,0,10,0" Width="100"/>
                                 <TextBlock Text="{Binding Prenume}" Margin="0,0,10,0" Width="100"/>
-                                <Button Content="View" Click="ViewConducatorAuto_Click" Width="50" Margin="5"/>
-                                <Button Content="Delete" Click="DeleteConducatorAuto_Click" Width="50" Margin="5"/>
+                                <Button Content="Edit" Click="EditConducatorAuto_Click" Tag="{Binding ID}" Width="50" Margin="5"/>
+                                <Button Content="Delete" Click="DeleteConducatorAuto_Click" Tag="{Binding ID}" Width="50" Margin="5"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
